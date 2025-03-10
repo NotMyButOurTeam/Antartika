@@ -6,5 +6,4 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Home::index');
-$routes->get('/search', 'Search::get');
-$routes->post('/search', 'Search::post');
+$routes->match(['get', 'post'], '/search', 'Search::search');
