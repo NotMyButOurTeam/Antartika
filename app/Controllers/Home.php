@@ -8,7 +8,6 @@ class Home extends BaseController
     {
         helper("form");
         return view("components/header", [ "title" => "Home" ])
-            . view("components/searchbar")
             . view("home")
             . view("components/footer");
     }

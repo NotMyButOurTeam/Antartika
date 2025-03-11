@@ -3,26 +3,25 @@
 namespace App\Controllers;
 
 use App\Models\AppModel;
+use CodeIgniter\RESTful\ResourceController;
 
-class Search extends BaseController
+class Search extends ResourceController
 {
-    public function search(): string
+    protected $format = "json";
+
+    public function search()
     {
         helper("form");
 
         $model = new AppModel();
-        $search = $this->request->getGet("query");
+        $search = $this->request->getGet("q");
 
-        if (strlen($search) < 1) {
-            $search = "Search";
-            $data["results"] = $model->getApps();
+        if ($search) {
+            $results = $model->getApps($search);
         } else {
-            $data["results"] = $model->getApps($search);
+            $results = [ ];
         }
 
-        return view("components/header", [ "title" => $search ])
-            . view("components/searchbar")
-            . view("search", $data)
-            . view("components/footer");
+        return $this->respond(["status" => "success", "results" => $results]);
     }
 }
