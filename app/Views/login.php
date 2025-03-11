@@ -1,5 +1,5 @@
 <div class="content">
-<form action="/login" method="post">
+<form method="post">
     <?= csrf_field() ?>
     <label for="email">Email </label>
     <input type="text" id="email" name="email"><br>
