@@ -6,6 +6,7 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get("/", "Home::index");
-$routes->get("/search", "Search::search");
-$routes->get("/login", "Login::index");
-$routes->post("/auth", "Login::auth");
+$routes->get("/search", "Search::getApps");
+$routes->match(["get", "post"], "/login", "Account::login");
+$routes->match(["get", "post"], "/register", "Account::register");
+$routes->get("/logout", "Account::logout");

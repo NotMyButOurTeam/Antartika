@@ -1,10 +1,11 @@
-<div class="searchbar">
-    <input type="text" id="query" placeholder="App name...">
-    <button id="searchbtn">Search</button>
+<div class="search-bar">
+    <input class="search-input" type="text" id="query" placeholder="App name...">
+    <button class="search-button" id="searchbtn"><i class="fa fa-search" aria-hidden="true"></i></button>
 </div>
 
-<div id="applist">
+<div class="content">
     <h2>Welcome to Antartika</h2>
+    <div class="app-list" id="applist"></div>
 </div>
 
 <script>
@@ -21,6 +22,7 @@ document.getElementById("searchbtn").addEventListener("click", function() {
                 if (data.results.length > 0) {
                     data.results.forEach(app => {
                         let item = document.createElement("div");
+                        item.classList.add("app");
                         item.innerHTML = "<h2>" + app.name + "</h2>\n" + "<p>" + app.description + "</p>";
                         applist.appendChild(item);
                     });

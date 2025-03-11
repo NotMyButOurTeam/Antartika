@@ -9,10 +9,8 @@ class Search extends ResourceController
 {
     protected $format = "json";
 
-    public function search()
+    public function getApps()
     {
-        helper("form");
-
         $model = new AppModel();
         $search = $this->request->getGet("q");
 
