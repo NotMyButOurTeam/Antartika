@@ -21,10 +21,13 @@ document.getElementById("searchbtn").addEventListener("click", function() {
 
                 if (data.results.length > 0) {
                     data.results.forEach(app => {
-                        let item = document.createElement("div");
-                        item.classList.add("app");
-                        item.innerHTML = "<h2>" + app.name + "</h2>\n" + "<p>" + app.description + "</p>";
-                        applist.appendChild(item);
+                        let link = document.createElement("a");
+                        let div = document.createElement("div");
+                        div.classList.add("app");
+                        div.innerHTML = "<h2>" + app.name + "</h2>\n" + "<p>" + app.description + "</p>";
+                        link.href = "/app/" + app.id;
+                        link.appendChild(div);
+                        applist.appendChild(link);
                     });
                 } else {
                     applist.innerHTML = "<h2>App not found...</h2>"

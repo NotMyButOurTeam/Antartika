@@ -12,6 +12,12 @@
         </div>
         <?php if(session()->get("user_id")): ?>
             <div>
+                <a href="<?= base_url("user/profile") ?>">Profile</a>
+            <?php if(session()->get("user_privilege") == "user"): ?>
+                <a href="<?= base_url("user/ascend") ?>">Become Publisher!</a>
+            <?php else: ?>
+                <a href="<?= base_url("app/publish") ?>">Publish</a>
+            <?php endif; ?>
                 <a href="<?= base_url("logout") ?>">Log-Out</a>
             </div>
         <?php elseif ($title == "Login" or $title == "Register"): ?>

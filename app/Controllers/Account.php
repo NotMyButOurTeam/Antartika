@@ -36,6 +36,33 @@ class Account extends BaseController
             . view("components/footer");
     }
 
+    public function logout()
+    {
+        if (session()->get("user_id")) {
+            session()->destroy();
+        }
+
+        return redirect()->to("/");
+    }
+
+    public function ascend()
+    {
+        $session = session();
+        if ($session->get("user_id")) {
+            $model = new AccountModel();
+
+            if($model->escalatePrivilege($session->get("user_id"))) {
+                $data = $model->getDataById($session->get("user_id"));
+
+                $session->set([
+                    "user_privilege" => $data["privilege"]
+                ]);
+
+                return redirect()->to("/");
+            }
+        }
+    }
+
     private function auth_login()
     {
         $email = $this->request->getPost("email");
@@ -43,13 +70,14 @@ class Account extends BaseController
 
         $model = new AccountModel();
         if ($model->isAccountValid($email, $password)) {
-            $data = $model->getUserData($email);
+            $data = $model->getDataById($model->getIdByEmail($email));
 
             $session = session();
             $session->set([
                 "user_id" => $data["id"],
                 "user_email" => $data["email"],
-                "user_name" => $data["name"]
+                "user_name" => $data["name"],
+                "user_privilege" => $data["privilege"]
             ]);
 
             return redirect()->to("/");
@@ -79,14 +107,5 @@ class Account extends BaseController
         ]);
 
         return redirect()->to("/login");
-    }
-
-    public function logout()
-    {
-        if (session()->get("user_id")) {
-            session()->destroy();
-        }
-
-        return redirect()->to("/");
     }
 }

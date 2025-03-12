@@ -24,11 +24,29 @@ class AccountModel extends Model
         return !empty($result);
     }
 
-    public function getUserData(string $email): array
+    public function escalatePrivilege(int $id): bool
+    {
+        $result = $this->where("id", $id)->first();
+        if ($result["privilege"] != "user") {
+            return False;
+        }
+
+        return $this->update($id, [
+            "privilege" => "publisher"
+        ]);
+    }
+
+    public function getDataById(int $id)
+    {
+        $result = $this->where("id", $id)->first();
+        return $result;
+    }
+
+    public function getIdByEmail(string $email): int
     {
         $result = $this->where("email", $email)->first();
 
-        return $result;
+        return $result["id"];
     }
 
     public function isAccountValid(string $email, string $password): bool
