@@ -1,0 +1,24 @@
+.home-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 5vw 0px 10vw 0px;
+
+    gap: 32px;
+}
+
+.home-page > img {
+    width: 25vw;
+    height: 25vw;
+    image-rendering: pixelated;
+}
+
+.home-page > h1 {
+    font-size: 64pt;
+}
+
+.home-page > p {
+    font-size: 32pt;
+    text-align: center;
+}

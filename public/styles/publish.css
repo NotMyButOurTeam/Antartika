@@ -1,0 +1,134 @@
+.publish-app-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 64px;
+
+    background: #e6e9ef;
+
+    box-sizing: border-box;
+    padding: 5vw 0px 25vw 0px;
+}
+
+.publish-app-container > h2 {
+    font-size: 48pt;
+}
+
+.publish-app-form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 24px;
+
+    background: #ccd0da;
+
+    width: 30%;
+
+    box-sizing: border-box;
+    padding: 32px;
+
+    font-size: 18pt;
+
+    box-shadow: 
+        0 0 6px #6c6f85;
+}
+
+.publish-app-form > div {
+    width: 100%;
+}
+
+.publish-app-form > div > input[type=text] {
+    font-size: 18pt;
+
+    background: #4c4f69;
+    color: #E6E9EF;
+
+    height: 32px;
+    width: 90%;
+
+    text-indent: 8pt;
+
+    border: none;
+    outline: none !important;
+
+    box-shadow:
+        0 0 12px #4c4f69;
+}
+
+#appIconPrev {
+    width: 98px;
+    height: 98px;
+
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+
+    margin: 15px 0px 0px 0px;
+
+    border-radius: 15px;
+    background-color: #cad3f5;
+    box-shadow:
+        0 0 8px #dc8a78;
+
+    cursor: pointer;
+}
+
+#appIconPrev:hover {
+    filter: sepia(100%) saturate(300%) brightness(70%) hue-rotate(180deg);
+}
+
+#appDescription {
+    font-size: 18pt;
+
+    background: #4c4f69;
+    color: #E6E9EF;
+
+    width: 90%;
+    height: 10vw;
+    resize: none;
+
+    box-sizing: border-box;
+    padding: 8pt;
+
+    border: none;
+    outline: none !important;
+
+    box-shadow:
+        0 0 12px #4c4f69;
+}
+
+#appImages {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    gap: 32px;
+
+    background: #949cbb;
+    min-height: 10vw;
+
+    overflow-x: auto;
+    white-space: nowrap;
+
+    box-shadow: 
+        0 0 8px #a5adce,
+        0 0 12px #b5bfe2;
+}
+
+.appImage {
+    height: 9vw;
+    object-fit: contain;
+    display: block; /* Prevents unwanted gaps */
+    max-width: none; /* Allows scrolling if the image is wider */
+}
+
+#appCategory {
+    margin: 6px 0px 0px 0px;
+
+    font-size: 18pt;
+    border: none;
+    outline: none !important;
+}
+
+#appPublishButton {
+    font-size: 24pt;
+}

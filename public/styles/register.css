@@ -1,0 +1,104 @@
+.register-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+
+    padding: 15vw 10px 25vw 10px;
+    box-sizing: border-box;
+}
+
+.register-container > h1 {
+    font-size: 48pt;
+}
+
+.register-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 20%;
+
+    gap: 32px;
+
+    background: #BCC0CC;
+    box-shadow:
+        0 0 0 4px #acb0be,
+        0 0 0 8px #bcc0cc,
+        0 0 0 12px #ccd0da;
+
+    box-sizing: border-box;
+    padding: 32px;
+}
+
+.register-form-container > div {
+    width: 100%;
+}
+
+.register-form-container > div > input {
+    background: #7C7F93;
+
+    font-size: 18pt;
+    width: 95%;
+    height: 24px;
+
+    outline: none !important;
+}
+
+.register-form-container > div > label {
+    font-size: 24pt;
+}
+
+.password-box {
+    display: flex;
+
+    height: 24px;
+    gap: 10px;
+}
+
+.password-box > input {
+    background: #7C7F93;
+    font-size: 18pt;
+    width: 83%;
+    height: 100%;
+    outline: none !important;
+}
+
+.password-box > p {
+    height: 100%;
+}
+
+#submitRegistrationButton {
+    display: block;
+    margin: auto;
+    padding: 10px;
+    border: none;
+
+    font-size: 24pt;
+
+    width: 15%;
+    background: #8c8fa1;
+
+    box-shadow:
+        2px 4px #5c5f77;
+
+    cursor: pointer;
+}
+
+#submitRegistrationButton:hover {
+    color: #cdd6f4;
+    background: #7c7f93;
+
+    box-shadow:
+        2px 4px #6c6f85;
+}
+
+#submitRegistrationButton:active {
+    color: #7c7f93;
+    background: #cdd6f4;
+
+    box-shadow:
+        2px 4px #6c6f85;
+}

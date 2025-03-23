@@ -1,0 +1,82 @@
+.app-container {
+    display: block;
+    margin: auto;
+
+    width: 60%;
+
+    box-sizing: border-box;
+    padding: 32px;
+}
+
+.app-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 12px;
+}
+
+.app-header > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.app-header > div > button {
+    font-size: 24pt;
+    height: 32px;
+    padding: 5px 15px 5px 15px;
+}
+
+.app-icon {
+    width: 128px;
+    height: 128px;
+
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+}
+
+.app-title {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+
+    gap: 4px;
+}
+
+.app-title > h3 {
+    font-size: 32pt;
+}
+
+.app-title > h4 {
+    font-size: 16pt;
+}
+
+.app-banner-container {
+    display: flex;
+
+    background: #acb0be;
+    height: 40vw;
+
+    overflow: hidden;
+
+    box-shadow: 
+        0px  4px #bcc0cc,
+        0px  8px #ccd0da,
+        0px -4px #bcc0cc,
+        0px -8px #ccd0da;
+}
+
+.app-container > h1 {
+    font-size: 24pt;
+    margin-bottom: 10px;
+}
+
+.app-container > p {
+    text-align: justify;
+    font-size: 18pt;
+    line-height: 1.2;
+}

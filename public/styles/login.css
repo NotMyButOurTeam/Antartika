@@ -1,0 +1,102 @@
+.login-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+
+    padding: 15vw 10px 25vw 10px;
+    box-sizing: border-box;
+}
+
+.login-form-container > h1 {
+    text-align: center;
+    font-size: 48pt;
+}
+
+.login-form-container > form {
+    display: flex;
+    flex-direction: column;
+
+    width: 20%;
+
+    gap: 32px;
+}
+
+.login-form-container > form > div {
+    display: flex;
+    flex-direction: column;
+
+    gap: 32px;
+
+    background: #bcc0cc;
+    padding: 32px;
+
+    box-shadow:
+        0 0 0 4px #acb0be,
+        0 0 0 8px #bcc0cc,
+        0 0 0 12px #ccd0da;
+}
+
+.login-form-container > form > div > div > input {
+    font-size: 18pt;
+    width: 95%;
+    height: 24px;
+
+    background: #7c7f93;
+
+    outline: none !important;
+}
+
+.login-form-container > form > div > div > label {
+    font-size: 18pt;
+}
+
+.login-form-container > form > button {
+    display: block;
+    margin: auto;
+    padding: 10px;
+    border: none;
+
+    font-size: 24pt;
+
+    width: 70%;
+    background: #8c8fa1;
+
+    box-shadow:
+        2px 4px #5c5f77;
+}
+
+.login-form-container > form > button:hover {
+    color: #cdd6f4;
+    background: #7c7f93;
+
+    box-shadow:
+        2px 4px #6c6f85;
+}
+
+.login-form-container > form > button:active {
+    color: #7c7f93;
+    background: #cdd6f4;
+
+    box-shadow:
+        2px 4px #6c6f85;
+}
+
+.password-box {
+    display: flex;
+
+    height: 24px;
+    gap: 10px;
+}
+
+.password-box > input {
+    background: #7C7F93;
+    font-size: 18pt;
+    width: 83%;
+    height: 100%;
+    outline: none !important;
+}
+
+.password-box > p {
+    height: 100%;
+}

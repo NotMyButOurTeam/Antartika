@@ -1,0 +1,212 @@
+@font-face {
+    font-family: MinimalPixel;
+    font-style: normal;
+    src: url("/vendors/minimal_pixel/Minimal5x7.ttf");
+}
+
+* {
+    margin: 0;
+    font-family: MinimalPixel;
+}
+
+body {
+    background: #303446;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+
+    position: sticky;
+    top: 0;
+
+    box-sizing: border-box;
+    padding: 16px 24px 10px 24px;
+
+    background: #eff1f5;
+    box-shadow:
+        0px 4px #dce0e8,
+        0px 12px #8c8fa1
+}
+
+section {
+    background: #e6e9ef;
+}
+
+footer {
+    box-sizing: border-box;
+    padding: 32px;
+
+    font-size: 28px !important;
+
+    color: #c6d0f5;
+    background: #303446;
+
+    box-shadow: 
+        0px -4px #414559,
+        0px -8px #51576d;
+}
+
+footer > table {
+    width: 40%;
+    margin: auto;
+}
+
+header > div {
+    display: flex;
+    gap: 10px;
+}
+
+.searchbar {
+    display: flex;
+    flex: 0.45 auto;
+}
+
+.searchbar > form {
+    display: flex;
+
+    flex: 1;
+    gap: 10px;
+}
+
+.searchbar > form > input[type=text] {
+    color: #5c5f77;
+
+    background: #ccd0da;
+    border: none;
+
+    height: 32px;
+    width: 100%;
+    font-size: 18pt;
+
+    box-shadow:
+        1px 2px #bcc0cc,
+        4px 4px #acb0be;
+
+    text-indent: 10px;
+}
+
+.searchbar > form > button {
+    background: #babbf1;
+    border: none;
+
+    font-size: 18pt;
+
+    height: 32px;
+    box-shadow:
+        1px 2px #bcc0cc,
+        4px 4px #acb0be;
+}
+
+.searchbar > form > input[type=text]:focus {
+    outline: none !important;
+    border: none;
+
+    color: #4c4f69;
+}
+
+.searchbar > form > button:hover {
+    background: #8caaee;
+
+    box-shadow:
+        1px 2px #bcc0ec,
+        4px 4px #acb0de;
+}
+
+.icon {
+    vertical-align: bottom;
+    font-size: 28px !important;
+}
+
+.icon-small {
+    vertical-align: bottom;
+    font-size: 16px !important;
+}
+
+.clickable {
+    font-size: 24pt;
+    user-select: none;
+    cursor: pointer;
+    color: #4c4f69;
+}
+
+.login:hover {
+    box-shadow: 
+        0px 3px #40a02b;
+}
+
+.register:hover {
+    box-shadow:
+        0px 3px #df8e1d;
+}
+
+.profile:hover {
+    box-shadow:
+        0px 3px #04a5e5;
+}
+
+.logout:hover {
+    box-shadow:
+        0px 3px #e64553;
+}
+
+.clickable:hover {
+    color: #7287fd;
+}
+
+.profile-box-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+
+    width: 250px;
+    padding: 32px 12px 48px 12px;
+
+    background: #EFF1F5;
+
+    position: fixed;
+    top: 120px;
+    box-sizing: border-box;
+    z-index: 10;
+
+    transition: transform 0.5s ease-in-out;
+    transform: translate3d(120vw, 0, 0);
+
+    box-shadow: 
+        0 0 0 3px #ccd0da,
+        0 0 0 5px #bcc0cc,
+        0 0 0 6px #acb0be;
+}
+
+.profile-box-container > h2 {
+    font-size: 28pt;
+}
+
+.profile-box-container > p {
+    font-size: 20pt;
+}
+
+.profile-image {
+    display: block;
+    margin: auto;
+
+    border-radius: 100%;
+
+    width: 172px;
+    height: 172px;
+
+    overflow: clip;
+
+    box-shadow: 
+        0 0 0 3px #ccd0da;
+}
+
+.profile-image > img {
+    width: 100%;
+    height: 100%;
+
+    aspect-ratio: 1 / 1/;
+    object-fit: cover;
+}

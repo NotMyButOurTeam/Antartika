@@ -1,0 +1,92 @@
+.profile-page {
+    display: flex;
+    flex-direction: column;
+
+    padding: 5vw 32px 25vw 32px;
+    box-sizing: border-box;
+
+    align-items: center;
+    gap: 32px;
+}
+
+.profile-page > h2 {
+    font-size: 32pt;
+}
+
+.profile-edit-overlay {
+    background: rgba(15, 15, 15, 0.5);
+    position: fixed;
+    z-index: 50;
+    top: 0;
+
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
+    width: 100%;
+    height: 100%;
+}
+
+.profile-edit-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+
+    background: #eff1f5;
+    box-sizing: border-box;
+    padding: 0px 0px 16px 0px;
+    width: 20%;
+
+    box-shadow: 
+        0 0 0 2px #acb0be,
+        0 0 0 4px #bcc0cc;
+}
+
+.profile-edit-box > form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    font-size: 18pt;
+    width: 100%;
+}
+
+.profile-edit-box > form > input {
+    font-size: 18pt;
+}
+
+.profile-edit-box-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 10px;
+    background: #9ca0b0;
+    box-sizing: border-box;
+    width: 100%;
+
+    font-size: 16pt;
+
+    box-shadow: 
+        0 2px #ccd0da,
+        0 6px #eff1f5;
+}
+
+.profile-edit-input-text {
+    background: #CCD0DA;
+    height: 24px;
+    width: 90%;
+    outline: none !important;
+}
+
+#profileImage {
+    user-select: none;
+    cursor: pointer;
+}
+
+#profileImage > img:hover {
+    filter: sepia(100%) saturate(300%) brightness(70%) hue-rotate(180deg);
+}
