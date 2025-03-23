@@ -1,3 +1,3 @@
 # Antartika
-![Awa](./public/Awa.png)
+![Awa](./public/awa.png)
 
