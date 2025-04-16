@@ -15,7 +15,8 @@ class UserModel extends Model
         "password"
     ];
 
-    public function addUser(string $email, string $name, string $password, string $profile = ""): int
+    public function addUser(string $email, string $name, string $password, 
+        string $profile = ""): int
     {
         return $this->insert([
             "email" => $email,
@@ -23,6 +24,30 @@ class UserModel extends Model
             "profile" => $profile,
             "password" => $password
         ]);
+    }
+
+    public function updateUser(int $id, string $email = null, string $name = null, 
+        string $profile = null, string $password = null): void
+    {
+        $data = [];
+
+        if ($email) {
+            $data["email"] = $email;
+        }
+
+        if ($name) {
+            $data["name"] = $name;
+        }
+
+        if ($profile) {
+            $data["profile"] = $profile;
+        }
+
+        if ($password) {
+            $data["password"] = $password;
+        }
+
+        $this->update($id, $data);
     }
 
     public function getUser(int $id): array | null
