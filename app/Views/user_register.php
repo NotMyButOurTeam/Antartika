@@ -10,23 +10,37 @@
         width: 720px;
         margin: auto;
     }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        width: 100%;
+        margin-top: 32px;
+    }
+
+    form div {
+        width: 100%;
+    }
+
     </style>
     <body>
         <h1>Register</h1>
-        <form id="userRegisterForm">
+        <form id="userRegisterForm" method="POST">
             <label>Nickname</label>
             <div>
-                <input type="text" id="userName" name="userName" required>
+                <input type="text" id="userName" name="userName" autocomplete="off" required>
             </div>
             <label>E-Mail</label>
             <div>
-                <input type="email" id="userEmail" name="userEmail" placeholder="New E-Mail" required>
-                <input type="email" id="verifyEmail" placeholder="Repeat E-Mail" required>
+                <input type="email" id="userEmail" name="userEmail" autocomplete="off" placeholder="New E-Mail" required>
+                <input type="email" id="verifyEmail" placeholder="Repeat E-Mail" autocomplete="off" required>
             </div>
             <label>Password</label>
-                <input type="password" id="userPassword" name="userPassword" placeholder="New Password" required>
-                <input type="password" id="verifyPassword" placeholder="Repeat Password" required>
             <div>
+                <input type="password" id="userPassword" name="userPassword" autocomplete="off" placeholder="New Password" required>
+                <input type="password" id="verifyPassword" autocomplete="off" placeholder="Repeat Password" required>
             </div>
             <button id="userSubmit">Register</button>
         </form>

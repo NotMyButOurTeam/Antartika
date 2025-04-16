@@ -14,7 +14,7 @@ class ApplicationModel extends Model
         "description"
     ];
 
-    public function addApplication(string $title, int $publisher, string $description = ""): int
+    public function addApplication(string $title, int $publisher, string $description = ""): int | bool
     {
         $data = [
             "title" => $title,

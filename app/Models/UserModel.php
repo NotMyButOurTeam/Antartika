@@ -16,7 +16,7 @@ class UserModel extends Model
     ];
 
     public function addUser(string $email, string $name, string $password, 
-        string $profile = ""): int
+        string $profile = ""): int | bool
     {
         return $this->insert([
             "email" => $email,
@@ -48,6 +48,20 @@ class UserModel extends Model
         }
 
         $this->update($id, $data);
+    }
+
+    public function validateUser(string $email, string $password): int | null
+    {
+        $data = $this->where([
+            "email" => $email,
+            "password" => $password
+        ])->first();
+
+        if ($data) {
+            return $data["id"];
+        }
+
+        return null;
     }
 
     public function getUser(int $id): array | null
