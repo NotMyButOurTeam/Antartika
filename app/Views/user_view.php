@@ -1,45 +1,30 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
-        <link rel="stylesheet" href="<?= base_url("reset.css") ?>">
-        <title><?= esc($title) ?> - Antartika</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="<?= base_url('reset.css') ?>">
+        <title><?= esc($name) ?></title>
         <style>
         body {
             position: relative;
             
             width: 720px;
             margin: auto;
-            margin-top: 8vw;
+            margin-top: 32px;
         }
 
-        .app-header {
-            display: flex;
-
-            gap: 32px;
-            align-items: center;
-
-            margin-bottom: 64px;
+        body > h1, body > p {
+            text-align: center;
         }
 
-        .app-header h1 {
-            font-size: 24pt;
-        }
+        body > img {
+            display: block;
+            border-radius: 100%;
+            margin: auto;
 
-        .app-previews-out {
-            width: 100%;
-            overflow: scroll;
-
-            margin-top: 64px;
-            margin-bottom: 64px;
-            padding: 32px;
-        }
-
-        .app-previews-in {
-            display: flex;
-            align-items: center;
-            gap: 32px;
-
-            width: 100vw;
+            width: 256px;
+            height: 256px;
+            object-fit: cover;
         }
 
         .review-area {
@@ -94,56 +79,23 @@
             width: 100%;
             height: 128px;
         }
-
-        .publisher-info {
-            display: flex;
-            align-items: center;
-            gap: 32px;
-            padding: 16px;
-        }
-
-        .publisher-info img {
-            border-radius: 100%;
-        }
-
-        a {
-            text-decoration: none;
-        }
         </style>
     </head>
     <body>
-        <div class="app-header">
-            <img style="width: 128px; height: 128px;" src="<?= base_url("/uploads/apps/icons/" . sprintf("%05d.png", $id)) ?> " 
-                onerror="this.src='<?= base_url("noicon.png") ?>';">
-            <h1><?= esc($title) ?></h1>
-        </div>
+        <img src="<?= base_url("/uploads/users/profiles/" . sprintf("%05d.png", $id)) ?> " 
+            onerror="this.src='<?= base_url("noicon.png") ?>';">
+        <h1><?= esc($name) ?></h1>
 
-        <p><?= esc($description) ?></p>
-
-        <div class="app-previews-out">
-            <div class="app-previews-in">
-            <?php foreach ($previews as $preview): ?>
-                <img style="width:100%;" src="<?= base_url("uploads/apps/previews/" . $preview) ?>">
-            <?php endforeach;?>
-            </div>
-        </div>
-
-        <h2>Publisher</h2>
-        <a href="/user/<?= sprintf("%05d", $publisher["id"]) ?>">
-            <div class="publisher-info">
-                <img src="<?= base_url("/uploads/users/profiles/" . sprintf("%05d.png", $publisher["id"])) ?> " 
-                    onerror="this.src='<?= base_url("noicon.png") ?>';">
-                <h2><?= esc($publisher["name"]) ?></h2>
-            </div>
-        </a>
-
-        <h2>Reviews</h2>
-        <?php if (session()->get("id")): ?>
-        <?php if (isset($rating)): ?>
-        <h3><?= esc($rating) ?></h3>
+        <?php if ($profile): ?>
+        <p><?= esc($profile) ?></p>
         <?php else: ?>
-        <h3>No review yet...</h3>
+        <p>No profile yet...</p>
         <?php endif; ?>
+
+        <?php if (isset($reputation)): ?>
+        <h2>Reviews</h2>
+        <h3><?= esc($reputation) ?></h3>
+        <?php if (session()->get("id")): ?>
         <form method="POST">
             <div>
                 <label>1</label>
@@ -161,7 +113,7 @@
             <button>Submit</button>
         </form>
         <?php endif; ?>
-        <?php if ($reviews) :?>
+        <?php if (isset($reviews)) :?>
         <div class="review-area">
             <?php foreach ($reviews as $review):?>
             <div class="review">
@@ -170,11 +122,14 @@
                         onerror="this.src='<?= base_url("noicon.png") ?>';">
                     <h3><?= $review["writer"]["name"] ?></h3>
                 </div>
-                <p>Rating: <?= esc($review["content"]["rating"]) ?></p>
+                <p>Gave <?= esc($review["content"]["rating"]) ?> Reputation to <?= esc($name) ?></p>
                 <p><?= $review["content"]["content"] ?></p>
             </div>
             <?php endforeach; ?>
         </div>
+        <?php else: ?>
+        <h3>No review yet...</h3>
+        <?php endif;?>
         <?php endif;?>
     </body>
 </html>

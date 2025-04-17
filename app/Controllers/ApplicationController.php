@@ -94,6 +94,9 @@ class ApplicationController extends BaseController
                 $data["rating"] = $rating;
             }
 
+            $publisher = $userModel->getUser($app["publisher"]);
+            $data["publisher"] = $publisher;
+
             return view("app_view", $data);
         }
 
