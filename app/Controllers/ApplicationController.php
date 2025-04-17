@@ -2,17 +2,54 @@
 
 namespace App\Controllers;
 
+use App\Models\UserModel;
+use App\Models\ReviewModel;
 use App\Models\PreviewModel;
 use App\Models\ApplicationModel;
 use App\Models\ApplicationPreviewModel;
+use App\Models\ApplicationReviewModel;
 
 class ApplicationController extends BaseController
 {
     public function view(int $id)
     {
+        $userModel = new UserModel();
         $appModel = new ApplicationModel();
         $prevModel = new PreviewModel();
         $appPrevModel = new ApplicationPreviewModel();
+        $revModel = new ReviewModel();
+        $appRevModel = new ApplicationReviewModel();
+
+        if ($this->request->getMethod() === "POST") {
+            $session = session();
+            $post = $this->request->getPost();
+            if ($session->get("id")) {
+                $reviews = $appRevModel->getApplicationReviews($id);
+
+                $continue = true;
+                foreach ($reviews as $review) {
+                    $r = $revModel->getReview($review);
+                    if ($r) {
+                        if ($r["writer"] === $session->get("id")) {
+                            $continue = false;
+                        }
+                    }
+                }
+
+                if ($continue) {
+                    $review = $revModel->addReview($session->get("id"),
+                        $post["reviewRating"],
+                        $post["reviewContent"]
+                    );
+
+                    if ($review > 0) {
+                        $appRevModel->addApplicationReview($id, $review);
+                    }
+                }
+            }
+
+            return redirect()->back();
+        }
 
         $app = $appModel->getApplication($id);
         if ($app) {
@@ -24,12 +61,37 @@ class ApplicationController extends BaseController
 
             $previews = $appPrevModel->getApplicationPreviews($id);
             if ($previews) {
-                foreach($previews as $preview) {
+                foreach ($previews as $preview) {
                     $url = $prevModel->getURL($preview);
                     if ($url) {
                         $data["previews"][] = $url;
                     }
                 }
+            }
+
+            $reviews = $appRevModel->getApplicationReviews($id);
+            if ($reviews) {
+                $rating = 0.0;
+                $rating_count = 0;
+                foreach ($reviews as $review) {
+                    $content = $revModel->getReview($review);
+                    if ($content) {
+                        $writer = $userModel->getUser($content["writer"]);
+                        if ($writer) {
+                            unset($content["writer"]);
+                            $data["reviews"][] = [
+                                "writer" => $writer,
+                                "content" => $content
+                            ];
+
+                            $rating += $content["rating"];
+                            $rating_count += 1;
+                        }
+                    }
+                }
+
+                $rating = $rating / $rating_count;
+                $data["rating"] = $rating;
             }
 
             return view("app_view", $data);
@@ -80,7 +142,10 @@ class ApplicationController extends BaseController
                                     }
 
                                     if($file->move($uploadPath, $fileName)) {
-                                        $previews[] = $prevModel->addPreview($fileName);
+                                        $preview = $prevModel->addPreview($fileName);
+                                        if ($preview) {
+                                            $previews[] = $preview;
+                                        }
                                     }
                                 }
                             }

@@ -12,7 +12,7 @@ class PreviewModel extends Model
         "url"
     ];
 
-    public function addPreview(string $url): int
+    public function addPreview(string $url): int | bool
     {
         return $this->insert([
             "url" => $url
