@@ -2,14 +2,12 @@
 <html>
     <head>
         <link rel="stylesheet" href="<?= base_url("reset.css") ?>">
+        <link rel="stylesheet" href="<?= base_url("style.css") ?>">
+        <script src="<?= base_url("scripts/header.js") ?>"></script> 
         <title><?= esc($title) ?> - Antartika</title>
         <style>
-        body {
-            position: relative;
-            
-            width: 720px;
-            margin: auto;
-            margin-top: 8vw;
+        section {
+            margin-top: 64px;
         }
 
         .app-header {
@@ -51,10 +49,28 @@
             margin-bottom: 32px;
         }
 
-        body > h3 {
+        section > h2 {
+            margin-top: 32px;
+            font-size: 24pt;
+        }
+
+        section > h3 {
             margin-top: 32px;
             text-align: center;
             font-size: 32pt;
+        }
+
+        .review-area {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            
+            margin-top: 32px;
+            margin-bottom: 32px;
+            padding: 16px;
+
+            border-radius: 15pt;
+            background: #292c3c;
         }
 
         .review {
@@ -62,6 +78,9 @@
             flex-direction: column;
             gap: 32px;
             padding: 16px;
+
+            border-radius: 12pt;
+            background: #303446;
         }
 
         .review-header {
@@ -81,18 +100,38 @@
             object-fit: cover;
         }
 
-        form {
+        .review-form {
             display: flex;
-            align-items: center;
             flex-direction: column;
-            gap: 16px;
-            padding: 32px;
+            align-items: center;
+            margin: auto;
+            margin-top: 32px;
+            gap: 8px;
+            padding: 12px;
+
+            color: #c6d0f5;
+            background: #24273a;
+            border-radius: 15pt;
         }
 
-        form textarea {
+        .review-form button {
+            border-radius: 15pt;
+            height: 32px;
+            width: 128px;
+        }
+
+        .review-form textarea {
             resize: none;
-            width: 100%;
+            width: 80%;
             height: 128px;
+            
+            border: none;
+            outline: none;
+
+            color: #c6d0f5;
+            background: #494d64;
+            border-radius: 15pt;
+            padding: 16px;
         }
 
         .publisher-info {
@@ -100,81 +139,116 @@
             align-items: center;
             gap: 32px;
             padding: 16px;
+
+            background: #363a4f;
+            margin-top: 32px;
+            border-radius: 15pt;
         }
 
         .publisher-info img {
             border-radius: 100%;
+            width: 96px;
+            height: 96px;
         }
 
         a {
+            color: #cad3f5;
             text-decoration: none;
+        }
+
+        .rating {
+            margin: auto;
+            margin-top: 32px;
+            border-radius: 100%;
+            height: 128px;
+            width: 128px;
+            padding-top: 36px;
+            box-sizing: border-box;
+            color: #a6d189;
+            background: #40a02b;
         }
         </style>
     </head>
     <body>
-        <div class="app-header">
-            <img style="width: 128px; height: 128px;" src="<?= base_url("/uploads/apps/icons/" . sprintf("%05d.png", $id)) ?> " 
-                onerror="this.src='<?= base_url("noicon.png") ?>';">
-            <h1><?= esc($title) ?></h1>
-        </div>
-
-        <p><?= esc($description) ?></p>
-
-        <div class="app-previews-out">
-            <div class="app-previews-in">
-            <?php foreach ($previews as $preview): ?>
-                <img style="width:100%;" src="<?= base_url("uploads/apps/previews/" . $preview) ?>">
-            <?php endforeach;?>
-            </div>
-        </div>
-
-        <h2>Publisher</h2>
-        <a href="/user/<?= sprintf("%05d", $publisher["id"]) ?>">
-            <div class="publisher-info">
-                <img src="<?= base_url("/uploads/users/profiles/" . sprintf("%05d.png", $publisher["id"])) ?> " 
-                    onerror="this.src='<?= base_url("noicon.png") ?>';">
-                <h2><?= esc($publisher["name"]) ?></h2>
-            </div>
-        </a>
-
-        <h2>Reviews</h2>
-        <?php if (session()->get("id")): ?>
-        <?php if (isset($rating)): ?>
-        <h3><?= esc($rating) ?></h3>
-        <?php else: ?>
-        <h3>No review yet...</h3>
-        <?php endif; ?>
-        <form method="POST">
-            <div>
-                <label>1</label>
-                <input type="radio" name="reviewRating" value="1" required>
-                <label>2</label>
-                <input type="radio" name="reviewRating" value="2">
-                <label>3</label>
-                <input type="radio" name="reviewRating" value="3">
-                <label>4</label>
-                <input type="radio" name="reviewRating" value="4">
-                <label>5</label>
-                <input type="radio" name="reviewRating" value="5">
-            </div>
-            <textarea name="reviewContent" required></textarea><br>
-            <button>Submit</button>
-        </form>
-        <?php endif; ?>
-        <?php if ($reviews) :?>
-        <div class="review-area">
-            <?php foreach ($reviews as $review):?>
-            <div class="review">
-                <div class="review-header">
-                    <img src="<?= base_url("/uploads/users/profiles/" . sprintf("%05d.png", $id)) ?> " 
-                        onerror="this.src='<?= base_url("noicon.png") ?>';">
-                    <h3><?= $review["writer"]["name"] ?></h3>
+        <header>
+            <div></div>
+            <form action="/app/search" class="search-form">
+                <div>
+                    <input type="text" name="q" placeholder="Enter app name...">
+                    <button>→</button>
                 </div>
-                <p>Rating: <?= esc($review["content"]["rating"]) ?></p>
-                <p><?= $review["content"]["content"] ?></p>
+            </form>
+            <img id="profileButton"
+                src="<?= base_url("/uploads/users/profiles/" . sprintf("%05d.png", session()->get("id"))) ?> " 
+                onerror="this.src='<?= base_url("noprof.png") ?>';">
+        </header>
+        <?= view("parts/header_click") ?>
+
+        <section>
+            <div class="app-header">
+                <img style="width: 128px; height: 128px;" src="<?= base_url("/uploads/apps/icons/" . sprintf("%05d.png", $id)) ?> " 
+                    onerror="this.src='<?= base_url("noicon.png") ?>';">
+                <h1><?= esc($title) ?></h1>
             </div>
-            <?php endforeach; ?>
-        </div>
-        <?php endif;?>
+
+            <p><?= esc($description) ?></p>
+
+            <div class="app-previews-out">
+                <div class="app-previews-in">
+                <?php foreach ($previews as $preview): ?>
+                    <img style="width:100%;" src="<?= base_url("uploads/apps/previews/" . $preview) ?>">
+                <?php endforeach;?>
+                </div>
+            </div>
+
+            <h2>Publisher</h2>
+            <a href="/user/<?= sprintf("%05d", $publisher["id"]) ?>">
+                <div class="publisher-info">
+                    <img src="<?= base_url("/uploads/users/profiles/" . sprintf("%05d.png", $publisher["id"])) ?> " 
+                        onerror="this.src='<?= base_url("noicon.png") ?>';">
+                    <h2><?= esc($publisher["name"]) ?></h2>
+                </div>
+            </a>
+
+            <h2 style="text-align: center;">Reviews</h2>
+            <?php if (session()->get("id")): ?>
+            <?php if (isset($rating)): ?>
+            <h3 class="rating"><?= esc($rating) ?></h3>
+            <?php else: ?>
+            <h3>No review yet...</h3>
+            <?php endif; ?>
+            <form method="POST" class="review-form">
+                <div>
+                    <label>1</label>
+                    <input type="radio" name="reviewRating" value="1" required>
+                    <label>2</label>
+                    <input type="radio" name="reviewRating" value="2">
+                    <label>3</label>
+                    <input type="radio" name="reviewRating" value="3">
+                    <label>4</label>
+                    <input type="radio" name="reviewRating" value="4">
+                    <label>5</label>
+                    <input type="radio" name="reviewRating" value="5">
+                </div>
+                <textarea name="reviewContent" placeholder="Write you view on the app!" required></textarea><br>
+                <button>Submit</button>
+            </form>
+            <?php endif; ?>
+            <?php if ($reviews) :?>
+            <div class="review-area">
+                <?php foreach ($reviews as $review):?>
+                <div class="review">
+                    <div class="review-header">
+                        <img src="<?= base_url("/uploads/users/profiles/" . sprintf("%05d.png", $review["writer"]["id"])) ?> " 
+                            onerror="this.src='<?= base_url("noicon.png") ?>';">
+                        <a href="/user/<?= sprintf("%05d", $review["writer"]["id"]) ?>"><h3><?= $review["writer"]["name"] ?></h3></a>
+                    </div>
+                    <p>Rating: <?= esc($review["content"]["rating"]) ?></p>
+                    <p><?= $review["content"]["content"] ?></p>
+                </div>
+                <?php endforeach; ?>
+            </div>
+            <?php endif;?>
+        </section>
     </body>
 </html>

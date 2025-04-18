@@ -9,6 +9,11 @@ use App\Models\PublisherReviewModel;
 
 class UserController extends BaseController
 {
+    public function dashboard()
+    {
+        return view("user_dashboard");
+    }
+
     public function edit()
     {
         $session = session();

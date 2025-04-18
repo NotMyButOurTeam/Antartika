@@ -21,6 +21,12 @@ class ApplicationController extends BaseController
             $data["query"] = $get["q"];
         }
 
+        $appModel = new ApplicationModel();
+        $apps = $appModel->searchApplications($get["q"]);
+        if ($apps) {
+            $data["results"] = $apps;
+        }
+
         return view("app_search", $data);
     }
 

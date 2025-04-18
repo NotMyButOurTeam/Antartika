@@ -46,11 +46,17 @@ class ApplicationModel extends Model
         $this->update($id, $data);
     }
 
-    public function searchApplications(string $query = ""): array
+    public function searchApplications(string $query = ""): array | null
     {
-        $data = $this->like("title", $query)
-                     ->orLike("description", $query)
-                     ->findAll();
+        $data = [];
+        if (!empty($query)) {
+            $data = $this->like("title", $query)
+                ->orLike("description", $query)
+                ->findAll();
+
+        } else {
+            $data = $this->findAll();
+        }
 
         return $data;
     }
