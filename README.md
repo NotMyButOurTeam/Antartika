@@ -22,3 +22,8 @@ $ composer install
 $ cp env .env
 $ php spark serve
 ```
+
+## (Not Optional) Database Configuration
+To use the database you must first create an account named 'antartika' on your localhost. This account does not have any password. After that, create a database named 'Antartika' with the previously created account. Next import the content of ```sql/mydb.sql``` into the database.
+
+And... Done!
