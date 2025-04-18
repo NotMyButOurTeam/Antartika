@@ -11,6 +11,19 @@ use App\Models\ApplicationReviewModel;
 
 class ApplicationController extends BaseController
 {
+    public function search(): string
+    {
+        $get = $this->request->getGet();
+        $data = [];
+
+        $data["query"] = "Search";
+        if (!empty($get["q"])) {
+            $data["query"] = $get["q"];
+        }
+
+        return view("app_search", $data);
+    }
+
     public function view(int $id)
     {
         $userModel = new UserModel();

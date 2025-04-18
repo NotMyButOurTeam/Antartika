@@ -1,0 +1,93 @@
+body {
+    position: relative;
+    color: #c6d0f5;
+    background: #232634;
+}
+
+header {
+    position: sticky;
+
+    display: flex;
+    flex-direction: row-reverse;
+
+    width: 98vw;
+    height: 48px;
+
+    padding: 12px;
+}
+
+header img {
+    width: 36px;
+    height: 36px;
+
+    border-radius: 100%;
+    cursor: pointer;
+    user-select: none;
+}
+
+header img:hover {
+    filter: sepia(20%) contrast(50%);
+}
+
+section {
+    width: 720px;
+    margin: auto;
+}
+
+button {
+    background: #a6da95;
+    outline: none;
+    border: none;
+}
+
+button:hover {
+    cursor: pointer;
+
+    background: #40a02b;
+    color: #c6d0f5;
+}
+
+.profile-box {
+    position: fixed;
+
+    display: none;
+    align-items: center;
+    flex-direction: column;
+    gap: 32px;
+
+    border-radius: 32px;
+
+    width: 320px;
+    right: 12px;
+    padding: 16px;
+    padding-bottom: 32px;
+
+    background: #414559;
+}
+
+.profile-box img {
+    border-radius: 100%;
+    width: 196px;
+    height: 196px;
+}
+
+.profile-box div {
+    display: flex;
+    gap: 6px;
+    flex-direction: column;
+    width: 100%;
+}
+
+.profile-box button {
+    height: 32px;
+    width: 100%;
+
+    border-radius: 16px;
+    
+    outline: none;
+    border: none;
+}
+
+.profile-box form {
+    width: 100%;
+}

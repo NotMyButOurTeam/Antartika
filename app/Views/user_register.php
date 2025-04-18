@@ -2,48 +2,88 @@
 <html>
     <head>
         <link rel="stylesheet" href="<?= base_url("reset.css") ?>">
+        <link rel="stylesheet" href="<?= base_url("style.css") ?>">
         <title>Register</title>
     </head>
     <style>
-    body {
-        position: relative;
-        width: 720px;
-        margin: auto;
+    section {
+        margin-top: 15vw;
     }
 
+    h1 {
+        font-size: 24pt;
+        text-align: center;
+    }
     form {
         display: flex;
         flex-direction: column;
         gap: 8px;
 
-        width: 100%;
-        margin-top: 32px;
+        width: 396px;
+        padding: 32px;
+        margin: auto;
+        margin-top: 64px;
+
+        border-radius: 15pt;
+        background: #303446;
     }
 
     form div {
+        display: flex;
         width: 100%;
+    }
+
+    form input {
+        border: none;
+        outline: none;
+        border-radius: 15pt;
+        padding-left: 16pt;
+
+        margin: auto;
+        height: 32px;
+        width: 42%;
+        
+        color: #c6d0f5;
+        background: #626880;
+    }
+
+    form > label {
+        margin-top: 8px;
+    }
+
+    form > button {
+        height: 32px;
+        margin-top: 16px;
+        border-radius: 15pt;
     }
 
     </style>
     <body>
-        <h1>Register</h1>
-        <form id="userRegisterForm" method="POST">
-            <label>Nickname</label>
-            <div>
-                <input type="text" id="userName" name="userName" autocomplete="off" required>
-            </div>
-            <label>E-Mail</label>
-            <div>
-                <input type="email" id="userEmail" name="userEmail" autocomplete="off" placeholder="New E-Mail" required>
-                <input type="email" id="verifyEmail" placeholder="Repeat E-Mail" autocomplete="off" required>
-            </div>
-            <label>Password</label>
-            <div>
-                <input type="password" id="userPassword" name="userPassword" autocomplete="off" placeholder="New Password" required>
-                <input type="password" id="verifyPassword" autocomplete="off" placeholder="Repeat Password" required>
-            </div>
-            <button id="userSubmit">Register</button>
-        </form>
+        <section>
+            <h1>Register</h1>
+            <form id="userRegisterForm" method="POST">
+                <label>Nickname</label>
+                <div>
+                    <input style="width: 100%;" type="text" id="userName" name="userName" 
+                        autocomplete="off" placeholder="Enter Nickname" required>
+                </div>
+                <label>E-Mail</label>
+                <div>
+                    <input type="email" id="userEmail" name="userEmail"
+                        autocomplete="off" placeholder="New E-Mail" required>
+                    <input type="email" id="verifyEmail" placeholder="Repeat E-Mail" 
+                        autocomplete="off" required>
+                </div>
+                <label>Password</label>
+                <div>
+                    <input type="password" id="userPassword" name="userPassword" 
+                        autocomplete="off" placeholder="New Password" required>
+                    <input type="password" id="verifyPassword" 
+                        autocomplete="off" placeholder="Repeat Password" required>
+                </div>
+                <button id="userSubmit">Register</button>
+            </form>
+        <section>
         <script>
         const userRegisterForm = document.getElementById("userRegisterForm");
 

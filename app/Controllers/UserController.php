@@ -9,6 +9,53 @@ use App\Models\PublisherReviewModel;
 
 class UserController extends BaseController
 {
+    public function edit()
+    {
+        $session = session();
+
+        if (!$session->get("id")) {
+            return redirect()->back();
+        }
+
+        $userModel = new UserModel();
+        $pubModel = new PublisherModel();
+        $data = $userModel->getUser($session->get("id"));
+        $data["is_publisher"] = ($pubModel->getReputation($data["id"]) != null);
+
+        if ($this->request->getMethod() === "POST") {
+            $post = $this->request->getPost();
+            $file = $this->request->getFile("newProfile");
+
+            if ($file) {
+                $uploadPath = FCPATH . "uploads/users/profiles/";
+                $fileName = sprintf("%05d.png", $session->get("id"));
+                $filePath = $uploadPath . $fileName;
+                if (file_exists($filePath)) {
+                    unlink($filePath);
+                }
+
+                $file->move($uploadPath, $fileName);
+            }
+
+            $password = null;
+            if ($userModel->validateUser($session->get("id"), 
+                $post["oldPassword"])) {
+                $password = $post["newPassword"];
+            }
+
+            $userModel->updateUser($session->get("id"), 
+                email: $post["newEmail"],
+                name: $post["newName"],
+                profile: $post["newProfile"],
+                password: $password,
+            );
+
+            return redirect()->back();
+        }
+
+        return view("user_edit", $data);
+    }
+
     public function view(int $id)
     {
         $userModel = new UserModel();
@@ -70,6 +117,8 @@ class UserController extends BaseController
             }
         }
 
+        $user["is_publisher"] = ($pubModel->getReputation($user["id"]) != null);
+
         return view("user_view", $user);
     }
 
@@ -97,6 +146,7 @@ class UserController extends BaseController
         if ($this->request->getMethod() == "POST") {
             $post = $this->request->getPost();
             $userModel = new UserModel();
+            $pubModel = new PublisherModel();
 
             $user = $userModel->validateUser($post["userEmail"], $post["userPassword"]);
             if ($user) {
@@ -107,7 +157,8 @@ class UserController extends BaseController
                 $session->set([
                     "id" => $data["id"],
                     "name" => $data["name"],
-                    "profile" => $data["profile"]
+                    "profile" => $data["profile"],
+                    "is_publisher" => $pubModel->getReputation($data["id"]) != null
                 ]);
 
                 return redirect()->to("/");
@@ -123,6 +174,6 @@ class UserController extends BaseController
         if ($session->get("id")) {
             $session->destroy();
         }
-        return redirect()->to("/");
+        return redirect()->back();
     }
 }
