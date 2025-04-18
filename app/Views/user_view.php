@@ -208,7 +208,7 @@
                 <?php endforeach; ?>
             </div>
             <?php else: ?>
-            <h3>No review yet...</h3>
+            <p style="text-align: center;">No review yet...<p>
             <?php endif;?>
             <?php endif;?>
         </section>

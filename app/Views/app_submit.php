@@ -3,14 +3,19 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="<?= base_url('reset.css') ?>">
-        <title>Submit Your App</title>
+        <link rel="stylesheet" href="<?= base_url('style.css') ?>">
+        <script src="<?= base_url("scripts/header.js") ?>"></script> 
+        <title>Submit | Antartika</title>
         <style>
-        body {
-            position: relative;
-            margin: auto;
-            margin-top:    6vw;
-            margin-bottom: 6vw;
-            width: 720px;
+        section {
+            margin-top: 64px;
+        }
+
+        .root-form button {
+            width: 128px;
+            height: 32px;
+            border-radius: 15pt;
+            margin-top: 32px;
         }
 
         .root-form {
@@ -48,33 +53,63 @@
         .root-form img:hover {
             filter: sepia(50%) contrast(80%);
         }
+
+        .root-form input[type=text], .root-form textarea {
+            outline: none;
+            border: none;
+            
+            padding: 8px;
+
+            color: #cad3f5;
+            background: #5b6078;
+            
+            border-radius: 8pt;
+        }
         </style>
     </head>
     <body>
-        <h1 style="text-align: center; font-size: 24pt;">Submit Your App</h1>
-        <div class="root-form">
-            <form id="appForm" onkeydown="if(event.key === 'Enter'){event.stopPropagation();}">
+        <header>
+            <div></div>
+            <form action="/app/search" class="search-form">
                 <div>
-                    <label for="appTitle">Title</label>
-                    <input type="text" id="appTitle" name="appTitle" autocomplete="off" required autofocus><br>
-                    <label for="appDescription">Description</label>
-                    <textarea style="resize: none;" id="appDescription" name="appDescription" required rows="24"></textarea><br>
-                    <label for="appTags">Tags</label>
-                    <input type="text" id="appTags" name="appTags" autocomplete="off" autofocus><br>
+                    <input type="text" name="q" placeholder="Enter app name...">
+                    <button>→</button>
                 </div>
-                <button id="appSubmit">Submit</button>
             </form>
-            <div>
-                <label for="appIcon">Icon</label><br>
-                <input type="file" id="appIconDialog" style="display: none;" accept="image/jpeg, image/png">
-                <img id="appIconView" style="height: 128px;" src="<?= base_url("noicon.png") ?>">
+            <img id="profileButton"
+                src="<?= base_url("/uploads/users/profiles/" . sprintf("%05d.png", session()->get("id"))) ?> " 
+                onerror="this.src='<?= base_url("noprof.png") ?>';">
+        </header>
+        <?= view("parts/header_click") ?>
+        <section>
+            <h1 style="text-align: center; font-size: 24pt;">Submit App</h1>
+            <div class="root-form">
+                <form id="appForm" onkeydown="if(event.key === 'Enter'){event.stopPropagation();}">
+                    <div>
+                        <label for="appTitle">Title</label>
+                        <input type="text" id="appTitle" name="appTitle" placeholder="Enter app name"
+                            autocomplete="off" required autofocus><br>
+                        <label for="appDescription">Description</label>
+                        <textarea style="resize: none;" id="appDescription" placeholder="Describe the app"
+                            name="appDescription" required rows="24"></textarea><br>
+                        <label for="appTags">Tags</label>
+                        <input type="text" id="appTags" name="appTags" placeholder="Choose tags befitting the app"
+                            autocomplete="off" autofocus><br>
+                    </div>
+                    <button id="appSubmit">Submit</button>
+                </form>
+                <div>
+                    <label for="appIcon">Icon</label><br>
+                    <input type="file" id="appIconDialog" style="display: none;" accept="image/jpeg, image/png">
+                    <img id="appIconView" style="height: 128px;" src="<?= base_url("noicon.png") ?>">
 
-                <label for="appPreview">Preview</label><br>
-                <input type="file" id="appPreview" accept="image/jpeg, image/png" multiple><br>
-                <ul id="appPreviewView" sytle="list-style-type: none; padding-left: 0;">
-                <ul>
-            </div>
-        <div>
+                    <label for="appPreview">Preview</label><br>
+                    <input type="file" id="appPreview" accept="image/jpeg, image/png" multiple><br>
+                    <ul id="appPreviewView" sytle="list-style-type: none; padding-left: 0;">
+                    <ul>
+                </div>
+            <div>
+        <section>
         <script>
         const appPreview = document.getElementById("appPreview");
         const appIconView = document.getElementById("appIconView");

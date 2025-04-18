@@ -190,8 +190,9 @@
                     onerror="this.src='<?= base_url("noicon.png") ?>';">
                 <h1><?= esc($title) ?></h1>
             </div>
-
-            <p><?= esc($description) ?></p>
+            <?php foreach(preg_split("/((\r?\n)|(\r\n?))/", $description) as $line): ?>
+                <p><?= esc($line) ?></p>
+            <?php endforeach; ?>
 
             <div class="app-previews-out">
                 <div class="app-previews-in">
@@ -215,7 +216,7 @@
             <?php if (isset($rating)): ?>
             <h3 class="rating"><?= esc($rating) ?></h3>
             <?php else: ?>
-            <h3>No review yet...</h3>
+            <p style="text-align: center;">No review yet...<p>
             <?php endif; ?>
             <form method="POST" class="review-form">
                 <div>
@@ -234,7 +235,7 @@
                 <button>Submit</button>
             </form>
             <?php endif; ?>
-            <?php if ($reviews) :?>
+            <?php if (isset($reviews)) :?>
             <div class="review-area">
                 <?php foreach ($reviews as $review):?>
                 <div class="review">

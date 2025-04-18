@@ -31,7 +31,7 @@ CREATE TABLE `Application` (
   PRIMARY KEY (`id`),
   KEY `publisher` (`publisher`),
   CONSTRAINT `Application_ibfk_1` FOREIGN KEY (`publisher`) REFERENCES `Publisher` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,10 @@ CREATE TABLE `Application` (
 LOCK TABLES `Application` WRITE;
 /*!40000 ALTER TABLE `Application` DISABLE KEYS */;
 INSERT INTO `Application` VALUES
-(1,1,'Godot','Godot is a fast and lightweight game engine capable of creating 2d and 3d game. Godot is open source software so you are able to tweak it as you please.');
+(1,1,'Godot','Godot is a fast and lightweight game engine capable of creating 2d and 3d game. Godot is open source software so you are able to tweak it as you please.'),
+(2,1,'Firefox','Firefox is a web browser that is Diddy Friendly!\r\n\r\nSo you could make a bulk of purchases of dozens of thousands of bottle of baby oils safely!'),
+(3,1,'Unity','Unity is 3D game engine with some 2d capabilities.\r\n'),
+(4,1,'Audacity','Audacity is a free, open-source software used for recording and editing audio. It works on Windows, macOS, and Linux, and is popular because it’s easy to use yet powerful enough for tasks like cutting, copying, and mixing sounds. With Audacity, users can record live audio, edit tracks, apply effects like noise removal and pitch changes, and export their projects in different file formats such as MP3 and WAV. It also supports multitrack editing, which means users can layer different audio recordings together in one project.\r\n\r\nDespite being free, Audacity offers a wide range of features that make it suitable for both beginners and more experienced users. However, its interface may look a bit outdated compared to newer software, and it might not have all the advanced tools found in professional studios without adding extra plug-ins. Still, for podcasting, simple music production, voice-over work, and everyday audio editing, Audacity remains a trusted and popular choice.');
 /*!40000 ALTER TABLE `Application` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -72,7 +75,15 @@ INSERT INTO `ApplicationPreview` VALUES
 (1,1),
 (1,2),
 (1,3),
-(1,4);
+(1,4),
+(2,5),
+(2,6),
+(2,7),
+(3,8),
+(3,9),
+(3,10),
+(4,11),
+(4,12);
 /*!40000 ALTER TABLE `ApplicationPreview` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -99,6 +110,9 @@ CREATE TABLE `ApplicationReview` (
 
 LOCK TABLES `ApplicationReview` WRITE;
 /*!40000 ALTER TABLE `ApplicationReview` DISABLE KEYS */;
+INSERT INTO `ApplicationReview` VALUES
+(1,1),
+(1,4);
 /*!40000 ALTER TABLE `ApplicationReview` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -187,9 +201,9 @@ DROP TABLE IF EXISTS `Preview`;
 /*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Preview` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `url` varchar(32) NOT NULL,
+  `url` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -202,7 +216,15 @@ INSERT INTO `Preview` VALUES
 (1,'Godot3.4.png'),
 (2,'3089913491688650043gol1.jpg'),
 (3,'5206049111708347229gol1.jpg'),
-(4,'editor_tps_demo_1920x1080.jpg');
+(4,'editor_tps_demo_1920x1080.jpg'),
+(5,'meta-img-global.fb0291b70586.png'),
+(6,'org.mozilla.png'),
+(7,'private-firefox.png'),
+(8,'thumb1.png'),
+(9,'695ab8ae563e824a7f406dede2889c5913925fe5.jpeg'),
+(10,'c01024bc0245f0ba6428939363d8fc1537e89ce2.jpeg'),
+(11,'front_page_3_6_0_78_numbered.png'),
+(12,'Theme_Dark.png');
 /*!40000 ALTER TABLE `Preview` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -216,7 +238,7 @@ DROP TABLE IF EXISTS `Publisher`;
 CREATE TABLE `Publisher` (
   `id` int(32) NOT NULL,
   `reputation` float DEFAULT NULL,
-  KEY `id` (`id`),
+  PRIMARY KEY (`id`),
   CONSTRAINT `Publisher_ibfk_1` FOREIGN KEY (`id`) REFERENCES `User` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -228,7 +250,8 @@ CREATE TABLE `Publisher` (
 LOCK TABLES `Publisher` WRITE;
 /*!40000 ALTER TABLE `Publisher` DISABLE KEYS */;
 INSERT INTO `Publisher` VALUES
-(1,0);
+(1,10),
+(4,1);
 /*!40000 ALTER TABLE `Publisher` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -255,6 +278,9 @@ CREATE TABLE `PublisherReview` (
 
 LOCK TABLES `PublisherReview` WRITE;
 /*!40000 ALTER TABLE `PublisherReview` DISABLE KEYS */;
+INSERT INTO `PublisherReview` VALUES
+(1,5),
+(1,6);
 /*!40000 ALTER TABLE `PublisherReview` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -271,7 +297,7 @@ CREATE TABLE `Review` (
   `rating` int(1) NOT NULL,
   `content` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -280,6 +306,11 @@ CREATE TABLE `Review` (
 
 LOCK TABLES `Review` WRITE;
 /*!40000 ALTER TABLE `Review` DISABLE KEYS */;
+INSERT INTO `Review` VALUES
+(1,2,5,'Diddy, ma friend! I finally found you!'),
+(4,3,4,'I\'ve used Godot for the past 5 years, and I must say the experience was pretty much amazing!\r\n\r\nStill, there are huge room for improvement left.'),
+(5,2,5,'Diddy is ma bro! So I ma gonna give him 5 reputation'),
+(6,1,5,'You know Diddy is the kindest person I\'ve ever met. He gave baby oils to everyone, no matter whether they\'re underage or overage, men or women.');
 /*!40000 ALTER TABLE `Review` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -323,7 +354,7 @@ CREATE TABLE `User` (
   `profile` text DEFAULT NULL,
   `password` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -333,7 +364,10 @@ CREATE TABLE `User` (
 LOCK TABLES `User` WRITE;
 /*!40000 ALTER TABLE `User` DISABLE KEYS */;
 INSERT INTO `User` VALUES
-(1,'diddy@baby.oil','Ahmad Diddy Aziz','I love baby oil...','baby');
+(1,'diddy@baby.oil','Ahmad Diddy Aziz','You know what\'s better than a bottle of baby oil? Why? Two bottle of baby oils, of course','baby'),
+(2,'loliku@gmail.com','Rafa Fazkha','','LoliTercinta'),
+(3,'niga@run.dayo','Sini Ga!','','NigarunDayo!'),
+(4,'zac@mail.org','Novzak','The only normal person in the group','zak');
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -346,4 +380,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2025-04-16 18:22:25
+-- Dump completed on 2025-04-18 13:42:40

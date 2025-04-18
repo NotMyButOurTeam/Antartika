@@ -124,12 +124,15 @@ class ApplicationController extends BaseController
 
     public function submit()
     {
+        if (!session()->get("id")) return redirect()->back();
+
         if ($this->request->getMethod() === "POST") {
             $post = $this->request->getPost();
             if ($post) {
                 $appModel = new ApplicationModel();
 
-                $appID = $appModel->addApplication($post["appTitle"], 1, $post["appDescription"]);
+                $appID = $appModel->addApplication($post["appTitle"], session()->get("id"), 
+                    $post["appDescription"]);
                 if ($appID) {
                     $files = $this->request->getFiles();
                     if ($files) {

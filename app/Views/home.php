@@ -77,6 +77,8 @@
     </head>
     <home>
         <header>
+            <div>
+            </div>
             <img id="profileButton"
                 src="<?= base_url("/uploads/users/profiles/" . sprintf("%05d.png", session()->get("id"))) ?> " 
                 onerror="this.src='<?= base_url("noprof.png") ?>';">

@@ -14,7 +14,7 @@ class ApplicationModel extends Model
         "description"
     ];
 
-    public function addApplication(string $title, int $publisher, string $description = ""): int | bool
+    public function addApplication(string $title, int $publisher, string $description = ""): int | null
     {
         $data = [
             "title" => $title,
@@ -22,7 +22,7 @@ class ApplicationModel extends Model
             "description" => $description
         ];
 
-        return $this->insert($data, false);
+        return $this->insert($data);
     }
 
     public function getApplication(int $id): array | null
@@ -59,6 +59,12 @@ class ApplicationModel extends Model
         }
 
         return $data;
+    }
+
+    public function searchApplicationsByPublisher(int $id): array | null
+    {
+        return $this->where("publisher", $id)
+            ->findAll();
     }
 
     public function removeApplication(int $id): void

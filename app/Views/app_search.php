@@ -9,6 +9,7 @@
         <style>
         section {
             margin: auto;
+            margin-top: 64px;
             width: 720px;
         }
 
@@ -64,7 +65,8 @@
             <div class="application-row">
                 <?php foreach($results as $app): ?>
                 <a href="/app/<?= sprintf("%05d", $app["id"]) ?>"><div class="application">
-                    <img src="<?= base_url("uploads/apps/icons/" . sprintf("%05d.png", $app["id"])) ?>">
+                    <img src="<?= base_url("uploads/apps/icons/" . sprintf("%05d.png", $app["id"])) ?>"
+                        onerror="this.src='<?= base_url("noicon.png") ?>';">
                     <h2><?= esc($app["title"]) ?></h2>
                 </div></a>
                 <?php endforeach; ?>

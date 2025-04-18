@@ -5,13 +5,29 @@ namespace App\Controllers;
 use App\Models\UserModel;
 use App\Models\ReviewModel;
 use App\Models\PublisherModel;
+use App\Models\ApplicationModel;
 use App\Models\PublisherReviewModel;
 
 class UserController extends BaseController
 {
     public function dashboard()
     {
-        return view("user_dashboard");
+        $pubModel = new PublisherModel();
+
+        $session = session();
+        if (!$session->get("id")){
+            return redirect()->to("");
+        }
+
+        $is_publisher = $pubModel->getReputation($session->get("id")) != null;
+        if (!$is_publisher) {
+            return redirect()->back();
+        }
+
+        $appModel = new ApplicationModel();
+        $apps = $appModel->searchApplicationsByPublisher($session->get("id"));
+
+        return view("user_dashboard", ["apps" => $apps]);
     }
 
     public function edit()

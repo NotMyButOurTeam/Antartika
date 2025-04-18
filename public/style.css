@@ -49,6 +49,11 @@ button:hover {
     color: #c6d0f5;
 }
 
+p {
+    text-align: justify;
+    line-height: 2.5;
+}
+
 .profile-box {
     position: fixed;
 
