@@ -31,7 +31,7 @@ CREATE TABLE `Application` (
   PRIMARY KEY (`id`),
   KEY `publisher` (`publisher`),
   CONSTRAINT `Application_ibfk_1` FOREIGN KEY (`publisher`) REFERENCES `Publisher` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,10 +41,11 @@ CREATE TABLE `Application` (
 LOCK TABLES `Application` WRITE;
 /*!40000 ALTER TABLE `Application` DISABLE KEYS */;
 INSERT INTO `Application` VALUES
-(1,1,'Godot','Godot is a fast and lightweight game engine capable of creating 2d and 3d game. Godot is open source software so you are able to tweak it as you please.'),
+(1,1,'Godot','Godot is a free, open-source game engine used to create 2D and 3D games. It works on Windows, macOS, and Linux, and is known for being lightweight, beginner-friendly, and fully featured. Godot has its own scripting language called GDScript, which is similar to Python, but it also supports C#, C++, and visual scripting. Developers can build games once and export them to many platforms, including desktop, mobile, web, and consoles.\r\n\r\nGodot is popular among indie developers and hobbyists because it gives full control over the game engine with no licensing fees. It has a scene system that makes organizing game objects simple, and it supports animations, physics, UI, audio, and networking right out of the box. While it may not be as feature-rich as commercial engines like Unity or Unreal for large-scale 3D games, Godot is constantly evolving, and its open development model gives users freedom and flexibility to shape the engine to their needs.'),
 (2,1,'Firefox','Firefox is a web browser that is Diddy Friendly!\r\n\r\nSo you could make a bulk of purchases of dozens of thousands of bottle of baby oils safely!'),
 (3,1,'Unity','Unity is 3D game engine with some 2d capabilities.\r\n'),
-(4,1,'Audacity','Audacity is a free, open-source software used for recording and editing audio. It works on Windows, macOS, and Linux, and is popular because it’s easy to use yet powerful enough for tasks like cutting, copying, and mixing sounds. With Audacity, users can record live audio, edit tracks, apply effects like noise removal and pitch changes, and export their projects in different file formats such as MP3 and WAV. It also supports multitrack editing, which means users can layer different audio recordings together in one project.\r\n\r\nDespite being free, Audacity offers a wide range of features that make it suitable for both beginners and more experienced users. However, its interface may look a bit outdated compared to newer software, and it might not have all the advanced tools found in professional studios without adding extra plug-ins. Still, for podcasting, simple music production, voice-over work, and everyday audio editing, Audacity remains a trusted and popular choice.');
+(4,1,'Audacity','Audacity is a free, open-source software used for recording and editing audio. It works on Windows, macOS, and Linux, and is popular because it’s easy to use yet powerful enough for tasks like cutting, copying, and mixing sounds. With Audacity, users can record live audio, edit tracks, apply effects like noise removal and pitch changes, and export their projects in different file formats such as MP3 and WAV. It also supports multitrack editing, which means users can layer different audio recordings together in one project.\r\n\r\nDespite being free, Audacity offers a wide range of features that make it suitable for both beginners and more experienced users. However, its interface may look a bit outdated compared to newer software, and it might not have all the advanced tools found in professional studios without adding extra plug-ins. Still, for podcasting, simple music production, voice-over work, and everyday audio editing, Audacity remains a trusted and popular choice.'),
+(5,1,'Blender','Blender is a free and open-source 3D creation software used for modeling, sculpting, animation, rendering, visual effects, game development, and even video editing. It works on Windows, macOS, and Linux, and is supported by a large, active community. Blender is known for its powerful set of tools, including a built-in rendering engine (Cycles), advanced animation features, and support for scripting with Python to automate tasks or create custom tools.\r\n\r\nBlender is used by hobbyists, indie developers, and even professionals in film and game industries. It has a flexible interface and a node-based workflow for materials and compositing. While Blender has a steep learning curve due to the sheer number of features, it offers everything needed for a complete 3D production pipeline — all for free, with no subscriptions or licenses required.');
 /*!40000 ALTER TABLE `Application` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -83,7 +84,11 @@ INSERT INTO `ApplicationPreview` VALUES
 (3,9),
 (3,10),
 (4,11),
-(4,12);
+(4,12),
+(5,13),
+(5,14),
+(5,15),
+(5,16);
 /*!40000 ALTER TABLE `ApplicationPreview` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -139,6 +144,20 @@ CREATE TABLE `ApplicationTag` (
 
 LOCK TABLES `ApplicationTag` WRITE;
 /*!40000 ALTER TABLE `ApplicationTag` DISABLE KEYS */;
+INSERT INTO `ApplicationTag` VALUES
+(1,1),
+(1,2),
+(1,4),
+(1,3),
+(1,5),
+(4,6),
+(4,7),
+(4,5),
+(5,1),
+(5,2),
+(5,8),
+(5,9),
+(5,5);
 /*!40000 ALTER TABLE `ApplicationTag` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -152,7 +171,7 @@ DROP TABLE IF EXISTS `ApplicationVerification`;
 CREATE TABLE `ApplicationVerification` (
   `app` int(32) NOT NULL,
   `moderator` int(32) DEFAULT NULL,
-  KEY `app` (`app`),
+  PRIMARY KEY (`app`),
   KEY `moderator` (`moderator`),
   CONSTRAINT `ApplicationVerification_ibfk_1` FOREIGN KEY (`app`) REFERENCES `Application` (`id`),
   CONSTRAINT `ApplicationVerification_ibfk_2` FOREIGN KEY (`moderator`) REFERENCES `Moderator` (`id`)
@@ -165,6 +184,12 @@ CREATE TABLE `ApplicationVerification` (
 
 LOCK TABLES `ApplicationVerification` WRITE;
 /*!40000 ALTER TABLE `ApplicationVerification` DISABLE KEYS */;
+INSERT INTO `ApplicationVerification` VALUES
+(1,4),
+(2,4),
+(3,4),
+(4,4),
+(5,4);
 /*!40000 ALTER TABLE `ApplicationVerification` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -178,7 +203,7 @@ DROP TABLE IF EXISTS `Moderator`;
 CREATE TABLE `Moderator` (
   `id` int(32) NOT NULL,
   `authority` int(2) NOT NULL,
-  KEY `id` (`id`),
+  PRIMARY KEY (`id`),
   CONSTRAINT `Moderator_ibfk_1` FOREIGN KEY (`id`) REFERENCES `User` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -189,6 +214,8 @@ CREATE TABLE `Moderator` (
 
 LOCK TABLES `Moderator` WRITE;
 /*!40000 ALTER TABLE `Moderator` DISABLE KEYS */;
+INSERT INTO `Moderator` VALUES
+(4,1);
 /*!40000 ALTER TABLE `Moderator` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -203,7 +230,7 @@ CREATE TABLE `Preview` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `url` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -224,7 +251,11 @@ INSERT INTO `Preview` VALUES
 (9,'695ab8ae563e824a7f406dede2889c5913925fe5.jpeg'),
 (10,'c01024bc0245f0ba6428939363d8fc1537e89ce2.jpeg'),
 (11,'front_page_3_6_0_78_numbered.png'),
-(12,'Theme_Dark.png');
+(12,'Theme_Dark.png'),
+(13,'blender_render-1280x720.jpg'),
+(14,'1_AvOQFRoRuqDumgZ46cGEoA.jpg'),
+(15,'getting-started_about_introduction_screenshot.jpg'),
+(16,'ss_bb251db2a92e1f05a01e0711df03034f9c39807c.1920x1080.jpg');
 /*!40000 ALTER TABLE `Preview` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -325,7 +356,7 @@ CREATE TABLE `Tag` (
   `id` int(32) NOT NULL AUTO_INCREMENT,
   `string` varchar(16) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -336,7 +367,14 @@ LOCK TABLES `Tag` WRITE;
 /*!40000 ALTER TABLE `Tag` DISABLE KEYS */;
 INSERT INTO `Tag` VALUES
 (1,'2d'),
-(2,'3d');
+(2,'3d'),
+(3,'gameengine'),
+(4,'game'),
+(5,'opensource'),
+(6,'audio'),
+(7,'production'),
+(8,'modelling'),
+(9,'rendering');
 /*!40000 ALTER TABLE `Tag` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -380,4 +418,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2025-04-18 13:42:40
+-- Dump completed on 2025-04-18 17:37:59
