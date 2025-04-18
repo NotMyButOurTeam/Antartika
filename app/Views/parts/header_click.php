@@ -8,6 +8,11 @@
         <form action="/user/edit">
             <button>Edit Profile</button>
         </form>
+        <?php if (session()->get("is_moderator")): ?>
+        <form action="/mod/panel">
+            <button>Verify Application</button>
+        </form>
+        <?php endif; ?>
         <?php if (session()->get("is_publisher")): ?>
         <form action="/user/dashboard">
             <button>Dashboard</button>

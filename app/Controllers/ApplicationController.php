@@ -4,12 +4,14 @@ namespace App\Controllers;
 
 use App\Models\TagModel;
 use App\Models\UserModel;
+use App\Models\ModeratorModel;
 use App\Models\ReviewModel;
 use App\Models\PreviewModel;
 use App\Models\ApplicationModel;
 use App\Models\ApplicationTagModel;
 use App\Models\ApplicationPreviewModel;
 use App\Models\ApplicationReviewModel;
+use App\Models\ApplicationVerificationModel;
 
 class ApplicationController extends BaseController
 {
@@ -116,13 +118,22 @@ class ApplicationController extends BaseController
             $apps = $appModel->searchApplications($get["q"]);
         }
 
+        if (!empty($get["q"])) {
+            $data["search"] = $get["q"];
+        }
+
+        $appVerModel = new ApplicationVerificationModel();
+
+        for ($i = 0; $i < count($apps); $i++) {
+            if (!$appVerModel->isApplicationVerified($apps[$i]["id"])) {
+                unset($apps[$i]);
+            }
+        }
+
         if ($apps) {
             $data["results"] = $apps;
         }
 
-        if (!empty($get["q"])) {
-            $data["search"] = $get["q"];
-        }
 
         return view("app_search", $data);
     }
@@ -130,6 +141,7 @@ class ApplicationController extends BaseController
     public function view(int $id)
     {
         $userModel = new UserModel();
+        $modModel = new ModeratorModel();
         $appModel = new ApplicationModel();
         $prevModel = new PreviewModel();
         $tagModel = new TagModel();
@@ -137,6 +149,7 @@ class ApplicationController extends BaseController
         $appPrevModel = new ApplicationPreviewModel();
         $appRevModel = new ApplicationReviewModel();
         $appTagModel = new ApplicationTagModel();
+        $appVerModel = new ApplicationVerificationModel();
 
         if ($this->request->getMethod() === "POST") {
             $session = session();
@@ -226,6 +239,18 @@ class ApplicationController extends BaseController
             $publisher = $userModel->getUser($app["publisher"]);
             $data["publisher"] = $publisher;
 
+            if (!$appVerModel->isApplicationVerified($id)) {
+                if (session()->get("id") 
+                    && session()->get("id") === $app["publisher"]) {
+                } else if (session()->get("id") 
+                    && $modModel->isModerator(session()->get("id"))) {
+                } else {
+                    return redirect()->to("/");
+                }
+
+                $data["is_verified"] = false;
+            }
+
             return view("app_view", $data);
         }
 
@@ -244,6 +269,9 @@ class ApplicationController extends BaseController
                 $appID = $appModel->addApplication($post["appTitle"], session()->get("id"), 
                     $post["appDescription"]);
                 if ($appID) {
+                    $appVerMod = new ApplicationVerificationModel();
+                    $appVerMod->addApplication($appID);
+
                     $files = $this->request->getFiles();
                     if ($files) {
                         if (isset($files["appIcon"]) 

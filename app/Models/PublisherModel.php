@@ -30,6 +30,11 @@ class PublisherModel extends Model {
         return null;
     }
 
+    public function isPublisher(int $id): bool 
+    {
+        return $this->getReputation($id) != null;
+    }
+
     public function updateReputation(int $id, float $reputation): void
     {
         $this->update($id, [

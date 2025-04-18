@@ -186,19 +186,7 @@
         </style>
     </head>
     <body>
-        <header>
-            <div></div>
-            <form action="/app/search" class="search-form">
-                <div>
-                    <input type="text" name="q" placeholder="Enter app name...">
-                    <button>→</button>
-                </div>
-            </form>
-            <img id="profileButton"
-                src="<?= base_url("/uploads/users/profiles/" . sprintf("%05d.png", session()->get("id"))) ?> " 
-                onerror="this.src='<?= base_url("noprof.png") ?>';">
-        </header>
-        <?= view("parts/header_click") ?>
+        <?= view("parts/header") ?>
 
         <section>
             <div class="app-top">
@@ -211,6 +199,13 @@
                     <form action="/app/edit/">
                         <input style="display:none" type="text" name="id" value="<?= $id ?>">
                         <button>Edit</button>
+                    </form>
+                <?php endif; ?>
+                <?php if (session()->get("id") && session()->get("is_moderator") && isset($is_verified)): ?>
+                    <form action="/mod/verify/" method="POST">
+                        <input style="display:none" type="text" name="moderator" value="<?= session()->get("id") ?>">
+                        <input style="display:none" type="text" name="app" value="<?= $id ?>">
+                        <button>Verify</button>
                     </form>
                 <?php endif; ?>
             </div>

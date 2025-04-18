@@ -52,6 +52,7 @@
     }
     </style>
     <body>
+        <?= view("parts/header") ?>
         <section>
             <input type="file" id="userProfileDialog" style="display: none;" accept="image/jpeg, image/png">
             <img id="userProfileButton"

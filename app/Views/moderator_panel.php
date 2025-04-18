@@ -1,28 +1,32 @@
 <!doctype html>
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link rel="stylesheet" href="<?= base_url("reset.css") ?>">
         <link rel="stylesheet" href="<?= base_url("style.css") ?>">
-        <script src="<?= base_url("scripts/header.js") ?>"></script> 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title><?= esc($query) ?> | Antartika</title>
+        <script src="<?= base_url("scripts/header.js") ?>"></script>
+        <title>Moderator Panel</title>
+
         <style>
         section {
-            margin: auto;
             margin-top: 64px;
-            width: 720px;
+        }
+        section > h1 {
+            font-size: 24pt;
+            text-align: center;
+            margin-bottom: 64px;
         }
 
         .application {
             display: flex;
             align-items: center;
             gap: 32px;
-            width: 95%;
-            height: 128px;
-            padding: 12px;
-
             background: #363a4f;
+            
+            padding: 8px;
             border-radius: 15pt;
+            
+            cursor: pointer;
         }
 
         .application h2 {
@@ -33,35 +37,25 @@
             width: 128px;
             height: 128px;
         }
-
-        .application-row {
-            display: flex;
-            flex-direction: column;
-            gap: 32px;
-        }
-
-        a, a:visited {
-            color: #cad3f5;
-            text-decoration: none;
-        }
         </style>
     </head>
-    <home>
+    <body>
         <?= view("parts/header") ?>
         <section>
-            <?php if (isset($results)): ?>
-            <div class="application-row">
-                <?php foreach($results as $app): ?>
+            <h1>Unverified Applications</h1>
+            <?php if (isset($apps)): ?>
+            <div>
+                <?php foreach ($apps as $app): ?>
                 <a href="/app/<?= sprintf("%05d", $app["id"]) ?>"><div class="application">
                     <img src="<?= base_url("uploads/apps/icons/" . sprintf("%05d.png", $app["id"])) ?>"
                         onerror="this.src='<?= base_url("noicon.png") ?>';">
-                    <h2><?= esc($app["title"]) ?></h2>
+                    <h2><?= $app["title"] ?></h2>
                 </div></a>
                 <?php endforeach; ?>
             </div>
             <?php else: ?>
-            <p>No app found...</p>
+            <p>No unverified app found...</p>
             <?php endif; ?>
         </section>
-    </home>
+    </body>
 </html>

@@ -54,6 +54,11 @@ p {
     line-height: 2.5;
 }
 
+a, a:visited {
+    color: #c6d0f5;
+    text-decoration: none;
+}
+
 .profile-box {
     position: fixed;
 
@@ -128,6 +133,7 @@ p {
     
     border: none;
     outline: none;
+    border-radius: 0px;
 
     font-size: 16pt;
 }

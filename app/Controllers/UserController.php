@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 use App\Models\ReviewModel;
+use App\Models\ModeratorModel;
 use App\Models\PublisherModel;
 use App\Models\ApplicationModel;
 use App\Models\PublisherReviewModel;
@@ -19,7 +20,7 @@ class UserController extends BaseController
             return redirect()->to("");
         }
 
-        $is_publisher = $pubModel->getReputation($session->get("id")) != null;
+        $is_publisher = $pubModel->isPublisher($session->get("id"));
         if (!$is_publisher) {
             return redirect()->back();
         }
@@ -41,7 +42,7 @@ class UserController extends BaseController
         $userModel = new UserModel();
         $pubModel = new PublisherModel();
         $data = $userModel->getUser($session->get("id"));
-        $data["is_publisher"] = ($pubModel->getReputation($data["id"]) != null);
+        $data["is_publisher"] = $pubModel->isPublisher($session->get("id"));
 
         if ($this->request->getMethod() === "POST") {
             $post = $this->request->getPost();
@@ -138,7 +139,7 @@ class UserController extends BaseController
             }
         }
 
-        $user["is_publisher"] = ($pubModel->getReputation($user["id"]) != null);
+        $user["is_publisher"] = $pubModel->isPublisher($user["id"]);
 
         return view("user_view", $user);
     }
@@ -168,6 +169,7 @@ class UserController extends BaseController
             $post = $this->request->getPost();
             $userModel = new UserModel();
             $pubModel = new PublisherModel();
+            $modModel = new ModeratorModel();
 
             $user = $userModel->validateUser($post["userEmail"], $post["userPassword"]);
             if ($user) {
@@ -179,7 +181,8 @@ class UserController extends BaseController
                     "id" => $data["id"],
                     "name" => $data["name"],
                     "profile" => $data["profile"],
-                    "is_publisher" => $pubModel->getReputation($data["id"]) != null
+                    "is_publisher" => $pubModel->isPublisher($data["id"]),
+                    "is_moderator" => $modModel->isModerator($data["id"])
                 ]);
 
                 return redirect()->to("/");
