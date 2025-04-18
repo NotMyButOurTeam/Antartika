@@ -2,15 +2,74 @@
 
 namespace App\Controllers;
 
+use App\Models\TagModel;
 use App\Models\UserModel;
 use App\Models\ReviewModel;
 use App\Models\PreviewModel;
 use App\Models\ApplicationModel;
+use App\Models\ApplicationTagModel;
 use App\Models\ApplicationPreviewModel;
 use App\Models\ApplicationReviewModel;
 
 class ApplicationController extends BaseController
 {
+    public function edit()
+    {
+        $s = session();
+        if (!$s->get("id")) return redirect()->back();
+
+        $appModel = new ApplicationModel();
+        $appID = $this->request->getGet("id");
+
+        $app = $appModel->getApplication($appID);
+        if (!$app) return redirect()->back();
+
+        if ($app["publisher"] != $s->get("id"))
+            return redirect()->back();
+
+        $tagModel = new TagModel();
+        $appTagModel = new ApplicationTagModel();
+
+        if ($this->request->getMethod() === "POST") {
+            $post = $this->request->getPost();
+
+            $tagline = $post["newTags"];
+            if (!empty($tagline)) {
+                $appTagModel->removeApplicationTags($appID);
+            }
+
+            foreach (explode("#", $tagline) as $t) {
+                $t = trim($t);
+                if ($t) {
+                    if (!$tagModel->searchTag($t)) {
+                        $tagModel->addTag($t);
+                    }
+
+                    $tag = $tagModel->searchTag($t);
+
+                    $appTagModel->addApplicationTag($appID, $tag);
+                }
+            }
+
+            $appModel->updateApplication($appID, 
+                title: $post["newTitle"], 
+                description: $post["newDescription"]);
+            return redirect()->to("/app/" . sprintf("%05d", $appID));
+        }
+
+        $tags = "";
+        $appTags = $appTagModel->getApplicationTags($appID);
+        if ($appTags) {
+            foreach($appTags as $appTag) {
+                $tag = $tagModel->getString($appTag);
+                $tags = $tags . "#" . $tag . " ";
+            }
+        }
+
+        $app["tags"] = $tags;
+        return view("app_edit", $app);
+    }
+
     public function search(): string
     {
         $get = $this->request->getGet();
@@ -21,10 +80,48 @@ class ApplicationController extends BaseController
             $data["query"] = $get["q"];
         }
 
+        $tagModel = new TagModel();
+        $appTagModel = new ApplicationTagModel();
         $appModel = new ApplicationModel();
-        $apps = $appModel->searchApplications($get["q"]);
+        $apps = null;
+        if (!empty($get["q"]) && $get["q"][0] === "#") {
+            $tags = [];
+            foreach (explode("#", $get["q"]) as $t) {
+                $t = trim($t);
+                if (!empty($t)) {
+                    $tag = $tagModel->searchTag($t);
+                    $tags[] = $tag;
+                }
+            }
+
+            $appIDs = [];
+            foreach ($tags as $tag) {
+                $appIDs = array_merge($appTagModel->getApplicationsTagged($tag), 
+                    $appIDs);
+            }
+
+            if ($appIDs) {
+                $appIDsDiff = array_unique(array_diff_assoc($appIDs, array_unique($appIDs)));
+                if (!empty($appIDsDiff)) {
+                    $appIDs = $appIDsDiff;
+                }
+                foreach ($appIDs as $appID) {
+                    $app = $appModel->getApplication($appID);
+                    if ($app) {
+                        $apps[] = $app;
+                    }
+                }
+            }
+        } else {
+            $apps = $appModel->searchApplications($get["q"]);
+        }
+
         if ($apps) {
             $data["results"] = $apps;
+        }
+
+        if (!empty($get["q"])) {
+            $data["search"] = $get["q"];
         }
 
         return view("app_search", $data);
@@ -35,9 +132,11 @@ class ApplicationController extends BaseController
         $userModel = new UserModel();
         $appModel = new ApplicationModel();
         $prevModel = new PreviewModel();
-        $appPrevModel = new ApplicationPreviewModel();
+        $tagModel = new TagModel();
         $revModel = new ReviewModel();
+        $appPrevModel = new ApplicationPreviewModel();
         $appRevModel = new ApplicationReviewModel();
+        $appTagModel = new ApplicationTagModel();
 
         if ($this->request->getMethod() === "POST") {
             $session = session();
@@ -113,6 +212,17 @@ class ApplicationController extends BaseController
                 $data["rating"] = $rating;
             }
 
+            $tags = "";
+            $appTags = $appTagModel->getApplicationTags($id);
+            if ($appTags) {
+                foreach($appTags as $appTag) {
+                    $tag = $tagModel->getString($appTag);
+                    $tags = $tags . "#" . $tag . " ";
+                }
+            }
+
+            $data["tags"] = $tags;
+
             $publisher = $userModel->getUser($app["publisher"]);
             $data["publisher"] = $publisher;
 
@@ -178,6 +288,23 @@ class ApplicationController extends BaseController
                             foreach ($previews as $preview) {
                                 $appPrevModel->addApplicationPreview($appID, $preview);
                             }
+                        }
+                    }
+
+                    $tagModel = new TagModel();
+                    $appTagModel = new ApplicationTagModel();
+
+                    $tagline = $post["appTags"];
+                    foreach (explode("#", $tagline) as $t) {
+                        $t = trim($t);
+                        if ($t) {
+                            if (!$tagModel->searchTag($t)) {
+                                $tagModel->addTag($t);
+                            }
+
+                            $tag = $tagModel->searchTag($t);
+
+                            $appTagModel->addApplicationTag($appID, $tag);
                         }
                     }
 

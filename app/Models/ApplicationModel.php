@@ -52,10 +52,11 @@ class ApplicationModel extends Model
         if (!empty($query)) {
             $data = $this->like("title", $query)
                 ->orLike("description", $query)
+                ->orderBy('title', 'ASC')
                 ->findAll();
 
         } else {
-            $data = $this->findAll();
+            $data = $this->orderBy('title', 'ASC')->findAll();
         }
 
         return $data;

@@ -15,3 +15,4 @@ $routes->get("/user/logout", "UserController::logout");
 $routes->match(["GET", "POST"], "/app/(:num)", "ApplicationController::view/$1");
 $routes->match(["GET", "POST"], "/app/submit", "ApplicationController::submit");
 $routes->get("/app/search", "ApplicationController::search");
+$routes->match(["GET", "POST"], "/app/edit", "ApplicationController::edit");

@@ -167,6 +167,22 @@
             color: #a6d189;
             background: #40a02b;
         }
+
+        .app-top {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .app-top button {
+            display: block;
+            margin: auto;
+            margin-right: 0px;
+            
+            width: 128px;
+            height: 32px;
+            
+            border-radius: 12px;
+        }
         </style>
     </head>
     <body>
@@ -185,10 +201,18 @@
         <?= view("parts/header_click") ?>
 
         <section>
-            <div class="app-header">
-                <img style="width: 128px; height: 128px;" src="<?= base_url("/uploads/apps/icons/" . sprintf("%05d.png", $id)) ?> " 
-                    onerror="this.src='<?= base_url("noicon.png") ?>';">
-                <h1><?= esc($title) ?></h1>
+            <div class="app-top">
+                <div class="app-header">
+                    <img style="width: 128px; height: 128px;" src="<?= base_url("/uploads/apps/icons/" . sprintf("%05d.png", $id)) ?> " 
+                        onerror="this.src='<?= base_url("noicon.png") ?>';">
+                    <h1><?= esc($title) ?></h1>
+                </div>
+                <?php if (session()->get("id") && session()->get("id") === $publisher["id"]): ?>
+                    <form action="/app/edit/">
+                        <input style="display:none" type="text" name="id" value="<?= $id ?>">
+                        <button>Edit</button>
+                    </form>
+                <?php endif; ?>
             </div>
             <?php foreach(preg_split("/((\r?\n)|(\r\n?))/", $description) as $line): ?>
                 <p><?= esc($line) ?></p>
@@ -197,10 +221,17 @@
             <div class="app-previews-out">
                 <div class="app-previews-in">
                 <?php foreach ($previews as $preview): ?>
-                    <img style="width:100%;" src="<?= base_url("uploads/apps/previews/" . $preview) ?>">
+                    <img style="width:auto; height: 25vw;" src="<?= base_url("uploads/apps/previews/" . $preview) ?>">
                 <?php endforeach;?>
                 </div>
             </div>
+
+            <h2>Tags</h2>
+            <?php if (!empty($tags)): ?>
+            <p style="color: #ef9f76; margin-top: 16px;"><?= esc($tags) ?></p>
+            <?php else: ?>
+            <p style="margin-top: 16px;">Not tagged</p>
+            <?php endif; ?>
 
             <h2>Publisher</h2>
             <a href="/user/<?= sprintf("%05d", $publisher["id"]) ?>">
@@ -212,12 +243,12 @@
             </a>
 
             <h2 style="text-align: center;">Reviews</h2>
-            <?php if (session()->get("id")): ?>
             <?php if (isset($rating)): ?>
             <h3 class="rating"><?= esc($rating) ?></h3>
             <?php else: ?>
             <p style="text-align: center;">No review yet...<p>
             <?php endif; ?>
+            <?php if (session()->get("id")): ?>
             <form method="POST" class="review-form">
                 <div>
                     <label>1</label>

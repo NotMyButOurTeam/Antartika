@@ -51,7 +51,11 @@
             <div></div>
             <form action="/app/search" class="search-form">
                 <div>
-                    <input type="text" name="q" placeholder="Enter app name...">
+                    <input type="text" name="q" placeholder="Enter app name..."
+                        <?php if (isset($search)): ?>
+                        value="<?= esc($search) ?>"
+                        <?php endif; ?>
+                    >
                     <button>→</button>
                 </div>
             </form>

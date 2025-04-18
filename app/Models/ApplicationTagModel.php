@@ -20,7 +20,7 @@ class ApplicationTagModel extends Model
         ]);
     }
 
-    public function getApplicationsTagged(int $tag): array
+    public function getApplicationsTagged(int $tag): array | null
     {
         $data = $this->where([
             "tag" => $tag
@@ -29,8 +29,17 @@ class ApplicationTagModel extends Model
         return $data;
     }
 
-    public function removeTag(int $id): void
+    public function getApplicationTags(int $app): array | null
     {
-        $this->delete($id);
+        $data = $this->where([
+            "app" => $app
+        ])->findColumn("tag");
+
+        return $data;
+    }
+
+    public function removeApplicationTags(int $app): void
+    {
+        $this->where(["app" => $app])->delete();
     }
 }

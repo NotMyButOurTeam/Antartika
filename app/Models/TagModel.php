@@ -19,13 +19,22 @@ class TagModel extends Model
         ]);
     }
 
-    public function searchTags(string $string): array | null
+    public function getString(int $id): string | null
+    {
+        return $this->find($id)["string"];
+    }
+
+    public function searchTag(string $string): int | null
     {
         $data = $this->where([
             "string" => $string
-        ])->findAll();
+        ])->first();
 
-        return $data;
+        if (!$data) {
+            return null;
+        }
+
+        return $data["id"];
     }
 
     public function removeTag(int $id): void
