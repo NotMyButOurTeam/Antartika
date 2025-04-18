@@ -192,6 +192,22 @@ class UserController extends BaseController
         return view("user_login");
     }
 
+    public function becomePublisher()
+    {
+        $s = session();
+        $pubModel = PublisherModel();
+
+        if (!$pubModel->isPublisher($s->get("id"))) {
+            $pubModel->addPublisher($s->get("id"));
+
+            $s->set([
+                "is_publisher" => true
+            ]);
+        }
+
+        return redirect()->back();
+    }
+
     public function logout()
     {
         $session = session();

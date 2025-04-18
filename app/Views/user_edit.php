@@ -64,11 +64,16 @@
                 <textarea name="newProfile" style="resize: none;"><?= esc($profile) ?></textarea>
                 <input type="text" name="newEmail" value="<?= esc($email) ?>">
                 <div>
-                    <input type="password" name="oldPassword" placeholder="Old Password" autocomplete="off">
-                    <input type="password" name="newPassword" placeholder="New Password" autocomplete="off">
+                    <input style="width: 45%" type="password" name="oldPassword" placeholder="Old Password" autocomplete="off">
+                    <input style="width: 45%" type="password" name="newPassword" placeholder="New Password" autocomplete="off">
                 </div>
                 <button>Save</button>
             </form>
+            <?php if (session()->get("is_publisher") === false): ?>
+            <form method="POST" action="elevateToPublisher">
+                <button>Become Publisher</button>
+            </form>
+            <?php endif; ?>
         </section>
         <script>
         const userChangeForm = document.getElementById("userChangeForm");
