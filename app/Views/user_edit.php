@@ -3,6 +3,7 @@
     <head>
         <link rel="stylesheet" href="<?= base_url("reset.css") ?>">
         <link rel="stylesheet" href="<?= base_url("style.css") ?>">
+        <script src="<?= base_url("scripts/header.js") ?>"></script> 
         <title>Edit Profile | Antartika</title>
     </head>
     <style>
@@ -27,7 +28,7 @@
         filter: sepia(20%) contrast(50%);
     }
 
-    form {
+    #userChangeForm {
         display: flex;
         margin: auto;
         margin-top: 64px;
@@ -70,6 +71,9 @@
                 <button>Save</button>
             </form>
             <?php if (session()->get("is_publisher") === false): ?>
+            <br>
+            <br>
+            <br>
             <form method="POST" action="elevateToPublisher">
                 <button>Become Publisher</button>
             </form>

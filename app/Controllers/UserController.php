@@ -195,7 +195,7 @@ class UserController extends BaseController
     public function becomePublisher()
     {
         $s = session();
-        $pubModel = PublisherModel();
+        $pubModel = new PublisherModel();
 
         if (!$pubModel->isPublisher($s->get("id"))) {
             $pubModel->addPublisher($s->get("id"));

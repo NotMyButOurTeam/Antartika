@@ -16,7 +16,7 @@ class PublisherModel extends Model {
     {
         return $this->insert([
             "id" => $id,
-            "reputation" => 0
+            "reputation" => 1
         ]);
     }
 
