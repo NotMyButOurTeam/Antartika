@@ -85,7 +85,7 @@ class ApplicationController extends BaseController
         $tagModel = new TagModel();
         $appTagModel = new ApplicationTagModel();
         $appModel = new ApplicationModel();
-        $apps = null;
+        $apps = [];
         if (!empty($get["q"]) && $get["q"][0] === "#") {
             $tags = [];
             foreach (explode("#", $get["q"]) as $t) {
@@ -98,8 +98,10 @@ class ApplicationController extends BaseController
 
             $appIDs = [];
             foreach ($tags as $tag) {
-                $appIDs = array_merge($appTagModel->getApplicationsTagged($tag), 
-                    $appIDs);
+                if (!empty($tag)) {
+                    $appIDs = array_merge($appTagModel->getApplicationsTagged($tag), 
+                        $appIDs);
+                }
             }
 
             if ($appIDs) {

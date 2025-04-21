@@ -239,7 +239,7 @@
 
             <h2 style="text-align: center;">Reviews</h2>
             <?php if (isset($rating)): ?>
-            <h3 class="rating"><?= esc($rating) ?></h3>
+            <h3 class="rating"><?= sprintf("%0.2f", esc($rating)) ?></h3>
             <?php else: ?>
             <p style="text-align: center;">No review yet...<p>
             <?php endif; ?>
