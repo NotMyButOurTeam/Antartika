@@ -1,5 +1,35 @@
 # Antartika
 
+## Deskripsi
+Antartika merupakan sebuah aplikasi sistem informasi penilaian aplikasi berbasis web yang berfokus untuk menyediakan platform dimana pengguna bisa melihat kekurangan dan kelebihan setiap aplikasi. Keberadaan aplikasi ini diharapkan mampu untuk mengurangi kebutuhan pengguna untuk mencoba aplikasi yang berkemungkinan berbahaya sendiri.
+
+## Alamat
+[http://localhost]
+
+## Menu Utama
+```
+- User
+    - Landing Page
+    - Search Page
+    - Profile Page
+    - Application View Page
+- Publisher
+    - Landing Page
+    - Search Page
+    - Profile Page
+    - Publisher Dashboard Page
+    - Application View Page
+    - Application Submission Page
+    - Application Edit Page
+- Moderator
+    - Landing Page
+    - Search Page
+    - Profile Page
+    - Application Verification Page
+```
+
+# Previous Description
+
 Antartika is a random project we decided to make, it is an app rating platform where you could rate app put there. Antartika is made using CodeIgniter version 4 and thus followed object-oriented MVC (Model-View-Controller) architecture.
 
 **Note:** this project is just a test project, so don't try to deploy it on the web.
