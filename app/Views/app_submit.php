@@ -30,7 +30,7 @@
         }
 
         .root-form > form {
-            width: 65%;
+            width: 60%;
         }
 
         .root-form div {
@@ -80,6 +80,9 @@
                         <label for="appDescription">Description</label>
                         <textarea style="resize: none;" id="appDescription" placeholder="Describe the app"
                             name="appDescription" required rows="24"></textarea><br>
+                        <label for="appSource">Source</label>
+                        <input type="text" id="appSource" name="appSource" placeholder="Enter the source of application(e.g. homepage, download page, etc.)"
+                            autocomplete="off" autofocus><br>
                         <label for="appTags">Tags</label>
                         <input type="text" id="appTags" name="appTags" placeholder="Choose tags befitting the app"
                             autocomplete="off" autofocus><br>

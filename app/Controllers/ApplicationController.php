@@ -270,7 +270,7 @@ class ApplicationController extends BaseController
                 $appModel = new ApplicationModel();
 
                 $appID = $appModel->addApplication($post["appTitle"], session()->get("id"), 
-                    $post["appDescription"]);
+                    $post["appDescription"], $post["appSource"]);
                 if ($appID) {
                     $appVerMod = new ApplicationVerificationModel();
                     $appVerMod->addApplication($appID);
