@@ -11,15 +11,17 @@ class ApplicationModel extends Model
     protected $allowedFields = [
         "title",
         "publisher",
-        "description"
+        "description",
+        "source"
     ];
 
-    public function addApplication(string $title, int $publisher, string $description = ""): int | null
+    public function addApplication(string $title, int $publisher, string $description = "", string $source = ""): int | null
     {
         $data = [
             "title" => $title,
             "publisher" => $publisher,
-            "description" => $description
+            "description" => $description,
+            "source" => $source
         ];
 
         return $this->insert($data);

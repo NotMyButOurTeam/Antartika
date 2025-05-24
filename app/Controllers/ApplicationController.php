@@ -189,7 +189,8 @@ class ApplicationController extends BaseController
             $data = [
                 "id" => $id,
                 "title" => $app["title"],
-                "description" => $app["description"]
+                "description" => $app["description"],
+                "source" => $app["source"]
             ];
 
             $previews = $appPrevModel->getApplicationPreviews($id);

@@ -30,6 +30,14 @@
             margin-top: 64px;
             margin-bottom: 64px;
             padding: 32px;
+
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .app-previews-out::-webkit-scrollbar {
+            display: none;
         }
 
         .app-previews-in {
@@ -220,6 +228,13 @@
                 <?php endforeach;?>
                 </div>
             </div>
+
+            <h2>Source</h2>
+            <?php if (isset($source)): ?>
+                <a href="<?= esc($source) ?>"><button>Homepage</button></a>
+            <?php else: ?>
+                <p>No source is given...</p>
+            <?php endif; ?>
 
             <h2>Tags</h2>
             <?php if (!empty($tags)): ?>
