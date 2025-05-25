@@ -165,7 +165,12 @@ class ApplicationController extends BaseController
                     $r = $revModel->getReview($review);
                     if ($r) {
                         if ($r["writer"] === $session->get("id")) {
+                            $revModel->updateReview($r["id"],
+                                $post["reviewRating"],
+                                $post["reviewContent"]
+                            );
                             $continue = false;
+                            break;
                         }
                     }
                 }

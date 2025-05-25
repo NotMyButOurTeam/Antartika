@@ -17,7 +17,7 @@ class UserController extends BaseController
 
         $session = session();
         if (!$session->get("id")){
-            return redirect()->to("");
+            return redirect()->to("/");
         }
 
         $is_publisher = $pubModel->isPublisher($session->get("id"));
@@ -214,6 +214,6 @@ class UserController extends BaseController
         if ($session->get("id")) {
             $session->destroy();
         }
-        return redirect()->back();
+        return redirect()->to("/");
     }
 }

@@ -29,6 +29,14 @@ class ReviewModel extends Model
 
         return $data;
     }
+
+    public function updateReview(int $id, int $rating, string $content): void
+    {
+        $this->update($id, [
+            "rating" => $rating,
+            "content" => $content
+        ]);
+    }
     
     public function removeReview(int $id): void
     {
