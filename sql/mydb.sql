@@ -28,6 +28,7 @@ CREATE TABLE `Application` (
   `publisher` int(32) NOT NULL,
   `title` varchar(32) NOT NULL,
   `description` text NOT NULL,
+  `source` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `publisher` (`publisher`),
   CONSTRAINT `Application_ibfk_1` FOREIGN KEY (`publisher`) REFERENCES `Publisher` (`id`)
@@ -41,11 +42,11 @@ CREATE TABLE `Application` (
 LOCK TABLES `Application` WRITE;
 /*!40000 ALTER TABLE `Application` DISABLE KEYS */;
 INSERT INTO `Application` VALUES
-(1,1,'Godot','Godot is a free, open-source game engine used to create 2D and 3D games. It works on Windows, macOS, and Linux, and is known for being lightweight, beginner-friendly, and fully featured. Godot has its own scripting language called GDScript, which is similar to Python, but it also supports C#, C++, and visual scripting. Developers can build games once and export them to many platforms, including desktop, mobile, web, and consoles.\r\n\r\nGodot is popular among indie developers and hobbyists because it gives full control over the game engine with no licensing fees. It has a scene system that makes organizing game objects simple, and it supports animations, physics, UI, audio, and networking right out of the box. While it may not be as feature-rich as commercial engines like Unity or Unreal for large-scale 3D games, Godot is constantly evolving, and its open development model gives users freedom and flexibility to shape the engine to their needs.'),
-(2,1,'Firefox','Firefox is a web browser that is Diddy Friendly!\r\n\r\nSo you could make a bulk of purchases of dozens of thousands of bottle of baby oils safely!'),
-(3,1,'Unity','Unity is 3D game engine with some 2d capabilities.\r\n'),
-(4,1,'Audacity','Audacity is a free, open-source software used for recording and editing audio. It works on Windows, macOS, and Linux, and is popular because it’s easy to use yet powerful enough for tasks like cutting, copying, and mixing sounds. With Audacity, users can record live audio, edit tracks, apply effects like noise removal and pitch changes, and export their projects in different file formats such as MP3 and WAV. It also supports multitrack editing, which means users can layer different audio recordings together in one project.\r\n\r\nDespite being free, Audacity offers a wide range of features that make it suitable for both beginners and more experienced users. However, its interface may look a bit outdated compared to newer software, and it might not have all the advanced tools found in professional studios without adding extra plug-ins. Still, for podcasting, simple music production, voice-over work, and everyday audio editing, Audacity remains a trusted and popular choice.'),
-(5,1,'Blender','Blender is a free and open-source 3D creation software used for modeling, sculpting, animation, rendering, visual effects, game development, and even video editing. It works on Windows, macOS, and Linux, and is supported by a large, active community. Blender is known for its powerful set of tools, including a built-in rendering engine (Cycles), advanced animation features, and support for scripting with Python to automate tasks or create custom tools.\r\n\r\nBlender is used by hobbyists, indie developers, and even professionals in film and game industries. It has a flexible interface and a node-based workflow for materials and compositing. While Blender has a steep learning curve due to the sheer number of features, it offers everything needed for a complete 3D production pipeline — all for free, with no subscriptions or licenses required.');
+(1,1,'Godot','Godot is a free, open-source game engine used to create 2D and 3D games. It works on Windows, macOS, and Linux, and is known for being lightweight, beginner-friendly, and fully featured. Godot has its own scripting language called GDScript, which is similar to Python, but it also supports C#, C++, and visual scripting. Developers can build games once and export them to many platforms, including desktop, mobile, web, and consoles.\r\n\r\nGodot is popular among indie developers and hobbyists because it gives full control over the game engine with no licensing fees. It has a scene system that makes organizing game objects simple, and it supports animations, physics, UI, audio, and networking right out of the box. While it may not be as feature-rich as commercial engines like Unity or Unreal for large-scale 3D games, Godot is constantly evolving, and its open development model gives users freedom and flexibility to shape the engine to their needs.','https://godotengine.org/'),
+(2,1,'Firefox','Firefox is a web browser that is Diddy Friendly!\r\n\r\nSo you could make a bulk of purchases of dozens of thousands of bottle of baby oils safely!','https://www.mozilla.org/en-US/firefox/new/'),
+(3,1,'Unity','Unity is 3D game engine with some 2d capabilities that hasn\'t been finished yet. Oh it also said that it would include AI in it. They also promised they would add ECS since 2019ish but hasn\'t fully supported it even after 6 years!','https://unity.com/'),
+(4,1,'Audacity','Audacity is a free, open-source software used for recording and editing audio. It works on Windows, macOS, and Linux, and is popular because it’s easy to use yet powerful enough for tasks like cutting, copying, and mixing sounds. With Audacity, users can record live audio, edit tracks, apply effects like noise removal and pitch changes, and export their projects in different file formats such as MP3 and WAV. It also supports multitrack editing, which means users can layer different audio recordings together in one project.\r\n\r\nDespite being free, Audacity offers a wide range of features that make it suitable for both beginners and more experienced users. However, its interface may look a bit outdated compared to newer software, and it might not have all the advanced tools found in professional studios without adding extra plug-ins. Still, for podcasting, simple music production, voice-over work, and everyday audio editing, Audacity remains a trusted and popular choice.','https://www.audacityteam.org/'),
+(5,1,'Blender','Blender is a free and open-source 3D creation software used for modeling, sculpting, animation, rendering, visual effects, game development, and even video editing. It works on Windows, macOS, and Linux, and is supported by a large, active community. Blender is known for its powerful set of tools, including a built-in rendering engine (Cycles), advanced animation features, and support for scripting with Python to automate tasks or create custom tools.\r\n\r\nBlender is used by hobbyists, indie developers, and even professionals in film and game industries. It has a flexible interface and a node-based workflow for materials and compositing. While Blender has a steep learning curve due to the sheer number of features, it offers everything needed for a complete 3D production pipeline — all for free, with no subscriptions or licenses required.','https://www.blender.org/');
 /*!40000 ALTER TABLE `Application` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -117,7 +118,9 @@ LOCK TABLES `ApplicationReview` WRITE;
 /*!40000 ALTER TABLE `ApplicationReview` DISABLE KEYS */;
 INSERT INTO `ApplicationReview` VALUES
 (1,1),
-(1,4);
+(1,4),
+(1,7),
+(1,8);
 /*!40000 ALTER TABLE `ApplicationReview` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -150,6 +153,15 @@ INSERT INTO `ApplicationTag` VALUES
 (1,4),
 (1,3),
 (1,5),
+(2,10),
+(2,11),
+(2,12),
+(2,13),
+(3,1),
+(3,2),
+(3,4),
+(3,3),
+(3,14),
 (4,6),
 (4,7),
 (4,5),
@@ -328,7 +340,7 @@ CREATE TABLE `Review` (
   `rating` int(1) NOT NULL,
   `content` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -341,7 +353,9 @@ INSERT INTO `Review` VALUES
 (1,2,5,'Diddy, ma friend! I finally found you!'),
 (4,3,4,'I\'ve used Godot for the past 5 years, and I must say the experience was pretty much amazing!\r\n\r\nStill, there are huge room for improvement left.'),
 (5,2,5,'Diddy is ma bro! So I ma gonna give him 5 reputation'),
-(6,1,5,'You know Diddy is the kindest person I\'ve ever met. He gave baby oils to everyone, no matter whether they\'re underage or overage, men or women.');
+(6,1,5,'You know Diddy is the kindest person I\'ve ever met. He gave baby oils to everyone, no matter whether they\'re underage or overage, men or women.'),
+(7,5,5,'Sigma!'),
+(8,1,5,'Negatrix! Transform!');
 /*!40000 ALTER TABLE `Review` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -356,7 +370,7 @@ CREATE TABLE `Tag` (
   `id` int(32) NOT NULL AUTO_INCREMENT,
   `string` varchar(16) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -374,7 +388,12 @@ INSERT INTO `Tag` VALUES
 (6,'audio'),
 (7,'production'),
 (8,'modelling'),
-(9,'rendering');
+(9,'rendering'),
+(10,'web'),
+(11,'browser'),
+(12,'webbrowser'),
+(13,'internet'),
+(14,'unity');
 /*!40000 ALTER TABLE `Tag` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -392,7 +411,7 @@ CREATE TABLE `User` (
   `profile` text DEFAULT NULL,
   `password` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -405,7 +424,9 @@ INSERT INTO `User` VALUES
 (1,'diddy@baby.oil','Ahmad Diddy Aziz','You know what\'s better than a bottle of baby oil? Why? Two bottle of baby oils, of course','baby'),
 (2,'loliku@gmail.com','Rafa Fazkha','','LoliTercinta'),
 (3,'niga@run.dayo','Sini Ga!','','NigarunDayo!'),
-(4,'zac@mail.org','Novzak','The only normal person in the group','zak');
+(4,'zac@mail.org','Novzak','The only normal person in the group','zak'),
+(5,'goreng@gmail.com','Ayam Goreng','','123'),
+(6,'cak@gmail.com','Wicaksini Hadir Mana','Saya Wicak','123');
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -418,4 +439,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2025-04-18 17:37:59
+-- Dump completed on 2025-05-26  6:07:09
