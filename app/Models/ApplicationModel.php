@@ -34,7 +34,7 @@ class ApplicationModel extends Model
         return $data;
     }
 
-    public function updateApplication(int $id, string $title = null, string $description = null): void
+    public function updateApplication(int $id, string $title = null, string $description = null, string $source = null): void
     {
         $data = [];
         if ($title) {
@@ -43,6 +43,10 @@ class ApplicationModel extends Model
 
         if ($description) {
             $data["description"] = $description;
+        }
+
+        if ($source) {
+            $data["source"] = $source;
         }
 
         $this->update($id, $data);

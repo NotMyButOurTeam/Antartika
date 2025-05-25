@@ -55,7 +55,8 @@ class ApplicationController extends BaseController
 
             $appModel->updateApplication($appID, 
                 title: $post["newTitle"], 
-                description: $post["newDescription"]);
+                description: $post["newDescription"],
+                source: $post["newSource"]);
             return redirect()->to("/app/" . sprintf("%05d", $appID));
         }
 

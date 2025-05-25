@@ -68,6 +68,14 @@
             font-size: 32pt;
         }
 
+        a > button {
+            margin-top: 16px;
+            height: 32px;
+            width: 96px;
+
+            border-radius: 8px;
+        }
+
         .review-area {
             display: flex;
             flex-direction: column;
@@ -231,7 +239,7 @@
 
             <h2>Source</h2>
             <?php if (isset($source)): ?>
-                <a href="<?= esc($source) ?>"><button>Homepage</button></a>
+                <a href="<?= esc($source) ?>"><button style="sourceButton">View Source</button></a>
             <?php else: ?>
                 <p>No source is given...</p>
             <?php endif; ?>

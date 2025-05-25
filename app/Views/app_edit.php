@@ -57,9 +57,11 @@
         <section>
             <form method="POST" class="app-edit-form">
                 <input type="text" name="newTitle" value="<?= esc($title) ?>" 
-                    placeholder="New Title">
+                    placeholder="New title...">
                 <textarea name="newDescription" 
-                    placeholder="New Description"><?= esc($description) ?></textarea>
+                    placeholder="New description..."><?= esc($description) ?></textarea>
+                <input type="text" name="newSource" value="<?= esc($source) ?>" 
+                    placeholder="New source...">
                 <input type="text" name="newTags" value="<?= esc($tags) ?>" 
                     placeholder="New Tags">
                 <button>Save</button>
